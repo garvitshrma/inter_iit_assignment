@@ -156,64 +156,64 @@
   "run": {
     "started": "2026-11-09",
     "programme": "B.Tech Mechanical Engineering",
-    "stale_output_warning": "could not clear data/processed (PermissionError: [Errno 1] Operation not permitted: 'academic_rule.csv'). Files written by this run are overwritten in place; any of the 18 existing file(s) this run does not write are LEFT BEHIND and may be stale. run_manifest.json records which files this run wrote.",
+    "stale_output_warning": null,
     "sample": null,
     "allow_illustrative": false,
     "raw_inventory": [
       {
-        "file": "curriculum/Courses_Of_Study.pdf",
+        "file": "curriculum\\Courses_Of_Study.pdf",
         "bytes": 2402620
       },
       {
-        "file": "curriculum/corrections.csv",
+        "file": "curriculum\\corrections.csv",
         "bytes": 979
       },
       {
-        "file": "curriculum/course_skills.csv",
+        "file": "curriculum\\course_skills.csv",
         "bytes": 24036
       },
       {
-        "file": "curriculum/courses.TEMPLATE.csv",
+        "file": "curriculum\\courses.TEMPLATE.csv",
         "bytes": 691
       },
       {
-        "file": "curriculum/courses.csv",
+        "file": "curriculum\\courses.csv",
         "bytes": 40068
       },
       {
-        "file": "curriculum/pdf_sources.json",
+        "file": "curriculum\\pdf_sources.json",
         "bytes": 1031
       },
       {
-        "file": "curriculum/prerequisites.TEMPLATE.csv",
+        "file": "curriculum\\prerequisites.TEMPLATE.csv",
         "bytes": 294
       },
       {
-        "file": "curriculum/prerequisites.csv",
+        "file": "curriculum\\prerequisites.csv",
         "bytes": 1584
       },
       {
-        "file": "curriculum/skills.csv",
+        "file": "curriculum\\skills.csv",
         "bytes": 9602
       },
       {
-        "file": "resources/resource_skills.csv",
+        "file": "resources\\resource_skills.csv",
         "bytes": 25714
       },
       {
-        "file": "resources/resources.csv",
+        "file": "resources\\resources.csv",
         "bytes": 30245
       },
       {
-        "file": "rules/UG_Manual.pdf",
+        "file": "rules\\UG_Manual.pdf",
         "bytes": 380035
       },
       {
-        "file": "rules/academic_rules.TEMPLATE.csv",
+        "file": "rules\\academic_rules.TEMPLATE.csv",
         "bytes": 421
       },
       {
-        "file": "rules/academic_rules.csv",
+        "file": "rules\\academic_rules.csv",
         "bytes": 16277
       }
     ],
@@ -243,6 +243,6 @@
       "MEP376->ME334: remapped to MEL334 per corrections.csv",
       "MEL414->MEL111: DROPPED per corrections.csv \u2014 MEL111 appears nowhere in the Courses of Study except as this course's prerequisite and overlap. No candidate course can be identified without guessing, so the edge is omitted rather than remapped. The printed value is preserved in prerequisites.csv source_note and reported in DATA_QUALITY.md."
     ],
-    "elapsed_seconds": 1.03
+    "elapsed_seconds": 0.06
   }
 }
