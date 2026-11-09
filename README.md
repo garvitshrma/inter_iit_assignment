@@ -1,200 +1,152 @@
 # Source-traced knowledge base + pipeline — B.Tech Mechanical Engineering
 
-A reproducible pipeline that takes messy public source material about **one**
-degree programme and produces clean, chunked, metadata-rich files that an
-embedding step could consume. **It stops before embedding, by design.** No
-embedding or LLM API is called anywhere in this repository.
+A reproducible pipeline that turns messy public documents about one degree
+programme into clean, chunked, metadata-rich files an embedding step could
+consume. **It stops before embedding, by design** — no embedding or LLM API is
+called anywhere. `make verify-no-embeddings` proves it by parsing every import.
 
 ## Run it
 
 ```bash
 pip install -r requirements.txt
-
-python run_pipeline.py                 # full run over data/raw      (or: make pipeline)
-python run_pipeline.py --sample 5      # small-sample run            (or: make sample)
+python run_pipeline.py          # full run        (or: make pipeline)
+python run_pipeline.py --sample 5
 ```
 
-Two demonstration runs, both meaningful:
+Two demonstrations:
 
 ```bash
-# All five stages, end to end, 0 errors. Real skills + real resources joined
-# against clearly-labelled illustrative courses.
-python run_pipeline.py --raw data/fixtures/sample --out data/fixtures/sample_out --allow-illustrative
-
-# The validator doing its job: 16 deliberately planted defects, all caught,
-# exit code 1, nothing exported.              (or: make broken)
+# the validator doing its job: 16 planted defects, all caught, exit 1, nothing
+# exported                                                    (or: make broken)
 python run_pipeline.py --raw data/fixtures/broken --out data/fixtures/out
+
+# all five stages clean, on labelled sample data
+python run_pipeline.py --raw data/fixtures/sample --out data/fixtures/sample_out --allow-illustrative
 ```
 
-Regenerate the two generated documents after a run:
+After changing anything in `data/raw/`, regenerate the three generated docs:
 
 ```bash
-python tools/make_quality_report.py --out data/processed   # -> docs/DATA_QUALITY.md
-python tools/make_sources.py                               # -> docs/SOURCES.md
+python tools/make_quality_report.py --out data/processed   # docs/DATA_QUALITY.md
+python tools/make_sources.py                               # SOURCES.md
+python tools/crosscheck_pdf.py                             # docs/PDF_CROSSCHECK.md
 ```
 
-## The five stages
+## What's in it
 
-| Stage | What it does | Where |
-|---|---|---|
-| 1. Ingest | Inventories `data/raw/`. Raw files are read, never written. Parses any institute PDF listed in `pdf_sources.json`. | `run_pipeline.py`, `loaders.parse_curriculum_pdf` |
-| 2. Parse & normalise | Canonicalises course codes (`mel 251` → `MEL251`), credits, L-T-P structures, semester labels (`V` / `Sem 5` / `5th` → `5`), dates, enums. Unparseable values are preserved, not coerced. | `pipeline/normalise.py`, `pipeline/loaders.py` |
-| 3. Validate | 18 checks across two severities. Errors abort the run with exit code 1 and export nothing. | `pipeline/validate.py` |
-| 4. Chunk | Rule-driven, not uniform. Rules are never split; syllabi are split on sentence boundaries with overlap; each course gets a synthesised `course_card`. | `pipeline/chunk.py` |
-| 5. Export | `data/processed/*.csv` + `*.json`, `chunks.jsonl`, `validation_report.*`, `run_manifest.json`. | `pipeline/export.py` |
-
-## What the validator checks
-
-Everything the brief names, plus what the data turned out to need.
-
-| Check | Severity | Catches |
-|---|---|---|
-| `provenance_complete` | ERROR | missing `source_url`, missing or non-ISO `retrieved_on`, retrieval dates in the future, unknown `source_type` |
-| `duplicate_course_code` | ERROR | two records sharing a code — reports both titles |
-| `credits_numeric` | ERROR | non-numeric credits, **naming the offending value** |
-| `credits_match_ltp` | WARN | stated credits matching neither `L+T+P` nor `L+T+P/2` |
-| `semester_range` | ERROR | semesters outside 1–10 |
-| `enum_values` | ERROR | invalid `course_type`, `kind`, `depth`, `origin` |
-| `prereq_target_exists` | ERROR | a prerequisite naming a course not in the catalogue; self-loops |
-| `prereq_no_cycle` | ERROR | prerequisite cycles — **reports the path**, e.g. `ME107 -> ME108 -> ME109 -> ME107` |
-| `skill_parent_exists` / `skill_taxonomy_no_cycle` | ERROR | broken or circular taxonomy parents |
-| `link_targets_exist` | ERROR | course/skill/resource links pointing at nothing |
-| `resource_licence_recorded` | ERROR | a resource with no licence |
-| `duplicate_resource_url` | WARN | two resources, one URL |
-| `rule_quotable` | ERROR/WARN | rule text too short to quote; a numeric limit with no unit; an unscoped rule |
-| `brief_minimums` | ERROR | fewer than 15 courses or 30 resources — enforced on full runs only |
-| `illustrative_rows_flagged` | WARN | placeholder rows present, and withheld from export |
-
-Verified by `data/fixtures/broken/`, which plants one defect per class; every CSV
-row there carries a `source_note` saying which error it is meant to trigger.
-
-## Disclosures
-
-Three things a reader should know before trusting anything here. Each is covered
-properly in its own document.
-
-**Manual entry.** The institute's `robots.txt` **disallows automated retrieval**
-of `www.iitbhilai.ac.in`. The brief requires scraping to be polite and legal, so
-the site was not scraped. The two source PDFs were downloaded by a human in a
-browser into `data/raw/`, and all 41 course records and 35 rules were transcribed
-from them by hand, with `source_type=manual` and the published page as
-`source_url`. The transcription is machine-verified against the PDF — see
-[`docs/PDF_CROSSCHECK.md`](docs/PDF_CROSSCHECK.md). Full robots findings per
-domain in [`docs/SOURCES.md`](docs/SOURCES.md).
-
-**AI use.** Permitted by the brief, with disclosure. The pipeline code, the
-resource retrieval, the taxonomy and this documentation were AI-assisted; **no
-course or academic-rule record was generated by a model.** See
-[`docs/AI_DISCLOSURE.md`](docs/AI_DISCLOSURE.md).
-
-**Nothing is human-verified yet.** Every record is `verification_status=unverified`.
-The verification procedure is [`docs/DATA_QUALITY.md`](docs/DATA_QUALITY.md) §6.
-
-## What is in the dataset
-
-| Entity | Records | Source |
-|---|---:|---|
-| Courses | **41** | Courses of Study (Oct 2026), B.Tech Mechanical Engineering: 14 institute core, 2 programme linked, 17 programme core, 6 electives, 2 non-graded |
-| Prerequisite edges | 6 | as printed, with two source defects repaired via `corrections.csv` |
-| Academic rules | **35** | UG Manual: credit limits, prerequisite policy, 25% overlap rule, MOOC/NPTEL credit transfer, CGPA thresholds, probation and termination, audit, credit expiry, Honours |
-| Skills | 60 | author-defined taxonomy (`origin=author_inferred`) |
-| Course → skill links | 66 | 60 syllabus-backed with the evidence phrase stored, 6 title-only and flagged as weaker |
-| Open resources | **56** | NPTEL (36) and MIT OpenCourseWare (20), licences verified against each provider's terms |
-| Resource → skill links | 109 | author's judgement, declared as such |
-| **Chunks** | **223** | `data/processed/chunks.jsonl` |
+| Entity | Records |
+|---|---:|
+| Courses | **41** |
+| Prerequisite edges | 7 |
+| Academic rules | **35** |
+| Skills | 60 |
+| Course → skill links | 66 |
+| Open resources | **56** |
+| Resource → skill links | 109 |
+| **Chunks** | **223** |
 
 Brief minimums were 15 courses and 30 resources. A full run validates clean:
 **0 errors, 17 warnings.**
 
-### Nine defects found in the official documents
+Courses and rules come from IIT Bhilai's *Courses of Study* (Oct 2026) and *UG
+Manual*. Resources are 36 NPTEL and 20 MIT OpenCourseWare, licences verified
+against each provider's own terms page.
 
-Transcribing the PDFs by hand surfaced nine real problems, including two
-prerequisites pointing at course codes that do not exist (`ME334`, `MEL111`), a
-course whose L-T-P is printed two different ways in the same document, and a
-programme elective (`MEL501`) declaring a 30% overlap with a *core* course —
-which breaches the UG Manual's own 25% ceiling and makes every Mechanical student
-who passes `MEL304` ineligible for it.
+## The five stages
 
-Every one is transcribed **as printed**; repairs live in
-`data/raw/curriculum/corrections.csv` with a reason, and the loader stamps the
-original value into the affected record's `source_note`. Full write-up:
+| Stage | What it does |
+|---|---|
+| 1. Ingest | Inventories `data/raw/`, which is never written to |
+| 2. Parse & normalise | Canonical codes, credits, L-T-P-C, semesters, dates. Never invents a missing value |
+| 3. Validate | 18 checks, two severities. Errors abort and export nothing |
+| 4. Chunk | Rules never split, syllabi split on sentences, a synthesised `course_card` per course |
+| 5. Export | CSV, JSON, `chunks.jsonl`, `run_manifest.json` |
+
+Each stage's contract is in [`docs/PIPELINE_HLD.md`](docs/PIPELINE_HLD.md).
+
+## What the validator checks
+
+Everything the brief names, plus what the data needed.
+
+| Check | Severity | Catches |
+|---|---|---|
+| `provenance_complete` | ERROR | missing source URL, bad or future retrieval date, unknown source type |
+| `duplicate_course_code` | ERROR | two records sharing a code |
+| `credits_numeric` | ERROR | non-numeric credits, naming the bad value |
+| `credits_match_ltp` | WARN | credits matching neither `L+T+P` nor `L+T+P/2` |
+| `semester_range` | ERROR | semesters outside 1–10 |
+| `enum_values` | ERROR | invalid course type, prerequisite kind, depth, origin |
+| `prereq_target_exists` | ERROR | a prerequisite naming a course that doesn't exist; self-loops |
+| `prereq_no_cycle` | ERROR | prerequisite cycles — **reports the path** |
+| `skill_parent_exists`, `skill_taxonomy_no_cycle` | ERROR | broken or circular taxonomy |
+| `link_targets_exist` | ERROR | links pointing at nothing |
+| `resource_licence_recorded` | ERROR | a resource with no licence |
+| `duplicate_resource_url` | WARN | two resources, one URL |
+| `rule_quotable` | ERROR/WARN | rule too short to quote; a limit with no unit; an unscoped rule |
+| `brief_minimums` | ERROR | under 15 courses or 30 resources (full runs only) |
+| `illustrative_rows_flagged` | WARN | placeholder rows, withheld from export |
+
+`data/fixtures/broken/` plants one defect per check; each row's `source_note`
+names the error it should trigger.
+
+## Disclosures
+
+**Manual entry.** IIT Bhilai's `robots.txt` **disallows automated retrieval**, and
+the brief grades politeness, so the site wasn't scraped. Both PDFs were downloaded
+by a human in a browser into `data/raw/`, and all 41 courses and 35 rules were
+transcribed by hand. The transcription is machine-checked against the PDF:
+**33 courses, 0 disagreements** ([`docs/PDF_CROSSCHECK.md`](docs/PDF_CROSSCHECK.md)).
+
+**AI use**, permitted by the brief with disclosure:
+[`docs/AI_DISCLOSURE.md`](docs/AI_DISCLOSURE.md). No course or rule record was
+generated by a model.
+
+**Nine defects in the official documents**, including two prerequisites naming
+courses that don't exist and an elective declaring 30% overlap with a core course
+— above the manual's own 25% limit. All transcribed as printed, repairs in
+`corrections.csv` with reasons:
 [`docs/SOURCE_DEFECTS.md`](docs/SOURCE_DEFECTS.md).
 
-### The transcription is independently verified
+## Known gaps
 
-Because the curriculum was typed by hand, `tools/crosscheck_pdf.py` re-reads the
-PDF with pdfplumber and diffs every four-part L-T-P-C value against
-`courses.csv`. It writes nothing to the dataset.
+- **`objectives` 0%.** The Courses of Study publishes a syllabus but no separate
+  learning objectives. Empty by source, not omission.
+- **`syllabus_text` 54%.** Present for every Mechanical course. The institute-core
+  courses publish syllabi under their own departments, outside this pass.
+- **15 courses have no skill link.** Those same institute-core courses. Mapping
+  them from titles alone would be unevidenced, so they're left out and counted.
+- **Resource durations 12.5%.** NPTEL's course pages render in JavaScript and
+  return an empty shell, so only resources with a static syllabus PDF have a
+  verified duration. The rest are empty rather than guessed.
+- **Verification is a sample, not complete.** Current counts in
+  [`docs/DATA_QUALITY.md`](docs/DATA_QUALITY.md). Add to it with
+  `python tools/verify_records.py --by "Your Name" -n 10`.
+- **No Minor programme exists** at IIT Bhilai, so that rule category is empty by
+  fact. BTech Honours is the analogue and states no CGPA threshold.
+- **Modules and exercises** are modelled but unpopulated.
+- **SWAYAM excluded** — licence unverifiable.
 
-**33 courses verified, 0 disagreements.** Output:
-[`docs/PDF_CROSSCHECK.md`](docs/PDF_CROSSCHECK.md).
-
-## Known gaps, named rather than hidden
-
-- **`objectives` 0% filled.** The Courses of Study publishes a syllabus per course
-  but no separate learning objectives, so this field is empty *by source*, not by
-  omission. `syllabus_text` is 53.7% filled — present for every Mechanical course,
-  absent for the institute-core courses whose syllabi are published under their
-  owning departments and were outside this programme-depth pass.
-- **16 courses carry no skill link** (`orphan_course_no_skill` warnings). These are
-  the institute-core and non-graded courses with no transcribed syllabus. Mapping
-  them from their titles alone would have produced unevidenced judgements, so they
-  are left unmapped and counted.
-- **Resource durations 12.5% filled.** NPTEL's course pages are client-side
-  rendered and return an empty shell to any fetch, so only the nine resources whose
-  static syllabus PDFs parse have a verified duration. The rest are null rather than
-  guessed. Two of the nine are sums of per-module hours where no overall total is
-  published, and say so in `source_note`.
-- **Nothing is human-verified yet.** Every record is
-  `verification_status=unverified`. The procedure is `DATA_QUALITY.md` §8.
-- **No Minor programme exists.** The brief asks for minor eligibility; IIT Bhilai's
-  UG Manual has no Minor provision. BTech Honours is the analogous rule and states
-  no numeric CGPA threshold. Recorded as `RULE-HONOURS`; no threshold was invented.
-- **Module-level and exercise records.** Modelled in the schema, unpopulated.
-  Module data needs per-resource page retrieval, which the client-side rendering
-  blocked. Exercises were marked bonus in the brief and not reached.
-- **SWAYAM excluded.** Its licence could not be verified, and an unverifiable
-  licence is worse than a smaller dataset.
-
-## Deliverables map
+## Where things are
 
 | Brief asks for | Here |
 |---|---|
-| `data/raw/` untouched sources | [`data/raw/`](data/raw/) — resources + taxonomy present; institute documents pending |
-| `data/processed/` final CSV/JSON | written by a run; `data/fixtures/sample_out/` holds a committed demonstration |
-| `chunks.jsonl` with parent IDs, types, sources, filter metadata | `data/processed/chunks.jsonl` |
-| `SOURCES.md` — every source, URL, date, licence | [`docs/SOURCES.md`](docs/SOURCES.md) *(generated)* |
-| Messy-input handling | [`docs/SOURCE_DEFECTS.md`](docs/SOURCE_DEFECTS.md), [`docs/PDF_CROSSCHECK.md`](docs/PDF_CROSSCHECK.md) *(generated)* |
+| `data/raw/` untouched sources | [`data/raw/`](data/raw/) |
+| `data/processed/` final CSV/JSON | written by a run |
+| `chunks.jsonl` | `data/processed/chunks.jsonl` |
+| `SOURCES.md` | [`SOURCES.md`](SOURCES.md) *(generated)* |
+| `IDEAS.md` — Part E | [`IDEAS.md`](IDEAS.md) |
 | Part B — schema | [`docs/SCHEMA.md`](docs/SCHEMA.md) |
-| Part D — data quality report | [`docs/DATA_QUALITY.md`](docs/DATA_QUALITY.md) *(generated)* |
-| Part E — ideas note | [`docs/IDEAS.md`](docs/IDEAS.md) |
+| Part C — pipeline design | [`docs/PIPELINE_HLD.md`](docs/PIPELINE_HLD.md) |
+| Part D — data quality | [`docs/DATA_QUALITY.md`](docs/DATA_QUALITY.md) *(generated)* |
 | Clarifying questions | [`docs/CLARIFICATIONS.md`](docs/CLARIFICATIONS.md) |
 
-## Layout
-
 ```
-run_pipeline.py              one-command entry point
-Makefile                     make pipeline | sample | broken | clean
-pipeline/
-  models.py                  schema: entities + the universal provenance block
-  normalise.py               code / credit / semester / date / enum canonicalisation
-  validate.py                18 checks, two severities, cycle detection with paths
-  chunk.py                   rule-driven chunking
-  export.py                  seed data, chunks.jsonl, the illustrative-row gate
-  loaders.py                 CSV readers + pdfplumber table extraction
-tools/
-  seed_skills.py             authors the skill taxonomy
-  seed_resources.py          authors the resource set from retrieved listings
-  make_quality_report.py     generates docs/DATA_QUALITY.md from a run
-  make_sources.py            generates docs/SOURCES.md from the raw CSVs
-  seed_curriculum.py         transcribes the curriculum + rules from the official PDFs
-  seed_course_skills.py      authors the course-skill links with evidence phrases
-  crosscheck_pdf.py          re-reads the PDF and diffs it against courses.csv
-  query_demo.py              inspect chunks by keyword/metadata (no embeddings)
-data/
-  raw/                       inputs, never written to
-  processed/                 outputs
-  fixtures/sample/           labelled illustrative data — a clean end-to-end run
-  fixtures/broken/           one planted defect per validator check
-docs/                        SCHEMA, SOURCES, DATA_QUALITY, IDEAS, CLARIFICATIONS, AI_DISCLOSURE
+run_pipeline.py        one command, five stages
+pipeline/              models · normalise · validate · chunk · export · loaders
+tools/                 seeds, report generators, crosscheck, verify, query
+data/raw/              inputs, never written to
+data/processed/        outputs
+data/fixtures/         sample (clean run) and broken (one defect per check)
+docs/                  SCHEMA · PIPELINE_HLD · DATA_QUALITY · SOURCE_DEFECTS ·
+                       PDF_CROSSCHECK · CLARIFICATIONS · AI_DISCLOSURE
 ```

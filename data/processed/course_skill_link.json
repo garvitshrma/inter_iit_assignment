@@ -73,9 +73,9 @@
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
     "source_note": "depth is the dataset author's judgement. The syllabus phrase it rests on is in the evidence field.",
-    "verification_status": "unverified",
-    "verified_on": null,
-    "verified_by": null
+    "verification_status": "human_verified",
+    "verified_on": "2026-11-10",
+    "verified_by": "Garvit Sharma"
   },
   {
     "course": "MEL211",
@@ -450,9 +450,9 @@
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
     "source_note": "depth is the dataset author's judgement. The syllabus phrase it rests on is in the evidence field.",
-    "verification_status": "unverified",
-    "verified_on": null,
-    "verified_by": null
+    "verification_status": "human_verified",
+    "verified_on": "2026-11-10",
+    "verified_by": "Garvit Sharma"
   },
   {
     "course": "MEP371",
@@ -476,9 +476,9 @@
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
     "source_note": "depth is the dataset author's judgement. The syllabus phrase it rests on is in the evidence field.",
-    "verification_status": "unverified",
-    "verified_on": null,
-    "verified_by": null
+    "verification_status": "human_verified",
+    "verified_on": "2026-11-10",
+    "verified_by": "Garvit Sharma"
   },
   {
     "course": "MEL334",

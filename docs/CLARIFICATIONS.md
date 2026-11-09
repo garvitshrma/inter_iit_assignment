@@ -1,44 +1,70 @@
 # Clarifying questions
 
-The brief invites clarifications and says good ones count. These were the
-decisions where guessing silently would have been the wrong move. Each records
-the assumption taken in the meantime, so the work was never blocked on an answer.
+The brief's ground rules say to ask for clarifications any time, and that good
+questions count in your favour while guessing silently does not.
 
-**1. Should the skill taxonomy be our own, or aligned to an existing framework?**
-A bespoke taxonomy fits the curriculum better; an established one (NBA graduate
-attributes, O*NET) is comparable across institutes and would matter if the buddy
-ever spans more than one.
-*Assumed:* bespoke, with `origin=author_inferred` on every node so the taxonomy
-is clearly separable from retrieved data and can be re-mapped later.
+These are the four places where the brief could reasonably be read more than one
+way, and where the choice changes the dataset. Each one records the option taken
+so that no question held up the work. The message as sent is in
+`CLARIFICATIONS_TO_SEND.md`.
 
-**2. For courses whose prerequisites are not stated in any public document — leave
-null, or infer from semester ordering and mark the inference?**
-Null is honest; inferred is more useful to a planner.
-*Assumed:* null. Inferring would mean a `prerequisite_edge` with no real source,
-and the whole dataset's credibility rests on every edge being traceable. The
-schema could carry inferred edges safely via `kind=recommended` plus a
-`source_type` of its own if you would rather have them.
+---
 
-**3. Does "at least 15 courses" mean 15 from the programme's own core, or may
-electives the programme permits from other departments count?**
-*Assumed:* the programme's own course list, including electives it offers.
-Cross-department electives a Mechanical student may take are in scope but were
-not needed to clear the minimum.
+### 1. Should the skill taxonomy be our own, or mapped to a standard framework?
 
-**4. Part C says the pipeline may run on a small sample. If the full dataset is
-small enough to run end to end, is a full run preferred, or do you specifically
-want to see the sampling mechanism?**
-*Assumed:* both are provided — `make pipeline` runs everything, `--sample N` caps
-each entity, and a labelled fixture set demonstrates all five stages.
+Our own fits one curriculum more closely. A standard framework (NBA graduate
+attributes, O*NET) can be compared across institutes, which would matter if the
+buddy ever covers more than one.
 
-**5. For the quality report, do you want field-fill percentages per entity, or per
-individual field?**
-*Assumed:* per field, grouped into fully / partially / never populated, since the
-useful signal is *which* fields are thin.
+**Chose:** our own. All 60 skills are tagged `origin=author_inferred`, so the
+taxonomy stays clearly separate from retrieved data and can be remapped later
+without touching a single course or resource record.
 
-**6. Would you rather the validator treat a missing `objectives` field as an error
-or a warning?**
-It is currently a warning. Making it an error would abort runs over genuinely
-incomplete public data, which pushes whoever is fixing it toward writing
-plausible objectives — the exact failure mode this assignment tests for. Flagged
-because it is a judgement about where to put the pressure, and you may disagree.
+---
+
+### 2. Courses with no prerequisites stated anywhere — leave empty, or infer them?
+
+Empty is honest. Inferred is more useful to someone planning a semester.
+
+**Chose:** empty. An inferred prerequisite would be a record with no source, and
+every claim in this dataset is supposed to trace back to a document. If inferred
+edges turn out to be more useful than their absence, the schema can hold them
+safely as `kind=recommended` with a source type of their own.
+
+---
+
+### 3. Does "at least 15 courses" mean 15 from the programme itself?
+
+**Chose:** the programme's own course list, including the electives it offers —
+41 courses, so the minimum is met either way. Electives from other departments
+that a Mechanical student may take are in scope but were not needed.
+
+---
+
+### 4. Should a missing learning-objectives field be an error or a warning?
+
+It is a warning. As an error, the pipeline would stop on data that is simply
+incomplete at the source, and whoever had to clear the error would be tempted to
+write objectives themselves — which is the exact problem this assignment is built
+to catch.
+
+As it turned out, IIT Bhilai's Courses of Study publishes a syllabus for each
+course but no separate learning objectives at all, so the field is 0% filled
+because of the source, not because of an oversight.
+
+Raised because it is a judgement about where to apply pressure, and a reviewer
+may want it stricter.
+
+---
+
+## Two questions answered without asking
+
+Both came up while planning, and both were settled by building each option rather
+than spending a question:
+
+- **Full run or small sample?** (Part C allows a sample.) Both work:
+  `make pipeline` runs everything, `--sample N` takes a connected subgraph, and
+  `data/fixtures/sample/` shows all five stages on clearly-labelled data.
+- **Quality report per entity or per field?** Per field, grouped into fully,
+  partly and never filled, since what matters is *which* fields are thin. Record
+  counts per entity are there too.

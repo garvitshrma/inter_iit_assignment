@@ -15,11 +15,8 @@ broken:
 clean:
 	rm -rf data/processed data/fixtures/out
 
+# Proves the brief's hard rule: the pipeline calls no embedding or LLM API.
+# Checks IMPORTS and DEPENDENCIES, not prose -- an earlier substring version
+# matched "cohere" inside the word "COHERENT" in a comment and failed the build.
 verify-no-embeddings:
-	@echo "Scanning pipeline code and requirements for embedding/LLM clients..."
-	@if grep -rniE '(openai|cohere|sentence_transformers|tiktoken|faiss|chromadb|pinecone|weaviate|qdrant|embeddings\.create|langchain|llama_index)' \
-		--include='*.py' --include='*.txt' pipeline tools run_pipeline.py requirements.txt ; then \
-		echo "FAIL: an embedding or LLM client is referenced above."; exit 1; \
-	else \
-		echo "PASS: no embedding or LLM client appears in the pipeline code or requirements."; \
-	fi
+	@python3 tools/verify_no_embeddings.py

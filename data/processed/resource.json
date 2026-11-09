@@ -133,9 +133,9 @@
     "retrieved_on": "2026-11-09",
     "source_type": "open-licence",
     "source_note": "tier=page_read; licence checked at https://nptel.ac.in/; provider states CC BY-NC-SA with no version, so licence_version is blank",
-    "verification_status": "unverified",
-    "verified_on": null,
-    "verified_by": null
+    "verification_status": "human_verified",
+    "verified_on": "2026-11-10",
+    "verified_by": "Garvit Sharma"
   },
   {
     "id": "RES-NPT-007",

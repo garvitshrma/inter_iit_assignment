@@ -91,9 +91,9 @@
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
     "source_note": "mapping is the dataset author's judgement based on the resource title and, where read, its stated outline",
-    "verification_status": "unverified",
-    "verified_on": null,
-    "verified_by": null
+    "verification_status": "human_verified",
+    "verified_on": "2026-11-10",
+    "verified_by": "Garvit Sharma"
   },
   {
     "resource": "RES-NPT-002",
@@ -139,9 +139,9 @@
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
     "source_note": "mapping is the dataset author's judgement based on the resource title and, where read, its stated outline",
-    "verification_status": "unverified",
-    "verified_on": null,
-    "verified_by": null
+    "verification_status": "human_verified",
+    "verified_on": "2026-11-10",
+    "verified_by": "Garvit Sharma"
   },
   {
     "resource": "RES-NPT-004",
@@ -619,9 +619,9 @@
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
     "source_note": "mapping is the dataset author's judgement based on the resource title and, where read, its stated outline",
-    "verification_status": "unverified",
-    "verified_on": null,
-    "verified_by": null
+    "verification_status": "human_verified",
+    "verified_on": "2026-11-10",
+    "verified_by": "Garvit Sharma"
   },
   {
     "resource": "RES-NPT-019",
@@ -859,9 +859,9 @@
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
     "source_note": "mapping is the dataset author's judgement based on the resource title and, where read, its stated outline",
-    "verification_status": "unverified",
-    "verified_on": null,
-    "verified_by": null
+    "verification_status": "human_verified",
+    "verified_on": "2026-11-10",
+    "verified_by": "Garvit Sharma"
   },
   {
     "resource": "RES-NPT-035",

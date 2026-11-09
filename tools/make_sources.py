@@ -81,9 +81,8 @@ def main():
       "says so. Where a judgement was made from a specific syllabus phrase, that phrase "
       "is stored in the link's `evidence` field.\n")
 
-    os.makedirs("docs", exist_ok=True)
-    open("docs/SOURCES.md", "w", encoding="utf-8").write("\n".join(L))
-    print(f"wrote docs/SOURCES.md ({len(chr(10).join(L)):,} chars)")
+    open("SOURCES.md", "w", encoding="utf-8").write("\n".join(L))
+    print(f"wrote SOURCES.md ({len(chr(10).join(L)):,} chars)")
 
 if __name__ == "__main__":
     main()
