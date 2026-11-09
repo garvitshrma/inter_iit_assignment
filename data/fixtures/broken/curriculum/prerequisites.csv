@@ -1,0 +1,8 @@
+course,requires,kind,source_url,retrieved_on,source_type,source_note,verification_status,verified_on,verified_by
+ME103,ME102,hard,https://example.invalid/fixture,2026-01-10,illustrative,valid edge,unverified,,
+ME104,ME999,hard,https://example.invalid/fixture,2026-01-10,illustrative,MISSING TARGET -> expect prereq_target_exists ERROR,unverified,,
+ME107,ME108,hard,https://example.invalid/fixture,2026-01-10,illustrative,cycle leg 1,unverified,,
+ME108,ME109,hard,https://example.invalid/fixture,2026-01-10,illustrative,cycle leg 2,unverified,,
+ME109,ME107,hard,https://example.invalid/fixture,2026-01-10,illustrative,cycle leg 3 -> expect prereq_no_cycle ERROR naming the path,unverified,,
+ME105,ME105,hard,https://example.invalid/fixture,2026-01-10,illustrative,SELF LOOP -> expect prereq_target_exists ERROR,unverified,,
+ME106,ME101,sideways,https://example.invalid/fixture,2026-01-10,illustrative,BAD KIND ENUM -> normalised to hard with a parse note,unverified,,

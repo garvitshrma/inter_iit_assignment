@@ -1,0 +1,4 @@
+id,title,provider,licence_name,licence_version,licence_url,licence_verified_on,fmt,duration_value,duration_unit,url,instructor,host_institute,description,source_url,retrieved_on,source_type,source_note,verification_status,verified_on,verified_by
+RES-OK,A properly licensed resource,NPTEL,CC BY-NC-SA,,,2026-01-10,online course,12,weeks,https://example.invalid/r1,,,,https://example.invalid/r1,2026-01-10,illustrative,valid,unverified,,
+RES-NOLIC,A resource with no licence recorded,NPTEL,,,,,online course,,,https://example.invalid/r2,,,,https://example.invalid/r2,2026-01-10,illustrative,NO LICENCE -> expect resource_licence_recorded ERROR,unverified,,
+RES-DUPURL,A resource duplicating another URL,NPTEL,CC BY-NC-SA,,,2026-01-10,online course,,,https://example.invalid/r1,,,,https://example.invalid/r1,2026-01-10,illustrative,DUPLICATE URL -> expect duplicate_resource_url WARN,unverified,,

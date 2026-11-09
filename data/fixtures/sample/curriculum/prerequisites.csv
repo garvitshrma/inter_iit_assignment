@@ -1,0 +1,6 @@
+course,requires,kind,source_url,retrieved_on,source_type,source_note,verification_status,verified_on,verified_by
+DEMO103,DEMO101,hard,file://data/fixtures/sample/README_FIXTURE.md,2026-11-09,illustrative,ILLUSTRATIVE demo edge,unverified,,
+DEMO103,DEMO102,hard,file://data/fixtures/sample/README_FIXTURE.md,2026-11-09,illustrative,ILLUSTRATIVE demo edge,unverified,,
+DEMO106,DEMO104,hard,file://data/fixtures/sample/README_FIXTURE.md,2026-11-09,illustrative,ILLUSTRATIVE demo edge,unverified,,
+DEMO105,DEMO104,recommended,file://data/fixtures/sample/README_FIXTURE.md,2026-11-09,illustrative,ILLUSTRATIVE demo edge,unverified,,
+DEMO102,DEMO101,recommended,file://data/fixtures/sample/README_FIXTURE.md,2026-11-09,illustrative,ILLUSTRATIVE demo edge,unverified,,

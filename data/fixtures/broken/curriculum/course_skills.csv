@@ -1,0 +1,5 @@
+course,skill,depth,evidence,source_url,retrieved_on,source_type,source_note,verification_status,verified_on,verified_by
+ME101,SK-A,working,,https://example.invalid/fixture,2026-01-10,illustrative,ok,unverified,,
+ME101,SK-GHOST,working,,https://example.invalid/fixture,2026-01-10,illustrative,MISSING SKILL -> expect link_targets_exist ERROR,unverified,,
+ME999,SK-A,working,,https://example.invalid/fixture,2026-01-10,illustrative,MISSING COURSE -> expect link_targets_exist ERROR,unverified,,
+ME102,SK-A,deeply,,https://example.invalid/fixture,2026-01-10,illustrative,BAD DEPTH ENUM -> normalised to intro with a parse note,unverified,,

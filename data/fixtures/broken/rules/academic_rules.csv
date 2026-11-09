@@ -1,0 +1,4 @@
+id,category,text,numeric_limit,unit,applies_to,clause_ref,source_url,retrieved_on,source_type,source_note,verification_status,verified_on,verified_by
+RULE-OK,credit_limit,A student may register for a maximum of 27 credits in any one semester.,27,credits,B.Tech all semesters,4.2,https://example.invalid/fixture,2026-01-10,illustrative,valid rule,unverified,,
+RULE-SHORT,credit_limit,Too short.,,,,,https://example.invalid/fixture,2026-01-10,illustrative,TEXT TOO SHORT -> expect rule_quotable ERROR,unverified,,
+RULE-NOUNIT,minor,Minor eligibility requires a CGPA of at least the stated threshold at the end of the fourth semester.,7.0,,,,https://example.invalid/fixture,2026-01-10,illustrative,LIMIT WITHOUT UNIT + no applies_to -> expect rule_quotable WARNs,unverified,,

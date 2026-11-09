@@ -1,0 +1,9 @@
+[
+  {
+    "check": "brief_minimums",
+    "severity": "ERROR",
+    "entity": "course",
+    "record_id": "-",
+    "message": "brief requires at least 15 courses; dataset has 0"
+  }
+]

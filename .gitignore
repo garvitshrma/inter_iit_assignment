@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+data/fixtures/out/
+data/fixtures/sample_out/
+.DS_Store

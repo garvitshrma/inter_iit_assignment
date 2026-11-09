@@ -1,0 +1,2 @@
+id,category,text,numeric_limit,unit,applies_to,clause_ref,source_url,retrieved_on,source_type,source_note,verification_status,verified_on,verified_by
+RULE-CREDIT-MAX,credit_limit,"<paste the rule text verbatim from the UG Manual — do not paraphrase>",27,credits,B.Tech all semesters,4.2,https://www.iitbhilai.ac.in/index.php?pid=ug_manual,2026-11-09,manual,"quoted verbatim from the UG Manual, clause 4.2",unverified,,

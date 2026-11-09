@@ -1,0 +1,5 @@
+id,name,level,parent_skill,origin,source_url,retrieved_on,source_type,source_note,verification_status,verified_on,verified_by
+SK-A,Skill A,foundational,,author_inferred,,,manual,ok,unverified,,
+SK-B,Skill B,foundational,SK-NOPE,author_inferred,,,manual,MISSING PARENT -> expect skill_parent_exists ERROR,unverified,,
+SK-C,Skill C,foundational,SK-D,author_inferred,,,manual,taxonomy cycle leg 1,unverified,,
+SK-D,Skill D,foundational,SK-C,author_inferred,,,manual,taxonomy cycle leg 2 -> expect skill_taxonomy_no_cycle ERROR,unverified,,

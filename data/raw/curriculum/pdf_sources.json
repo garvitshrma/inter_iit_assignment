@@ -1,0 +1,9 @@
+{
+  "_comment": "Maps each PDF dropped into data/raw/curriculum/ to the page it was downloaded from. A PDF with no entry here is SKIPPED by the pipeline, because rows parsed from it would have no source_url and would fail validation. Add an entry, then re-run.",
+  "_example": {
+    "courses-of-study-oct-2026.pdf": {
+      "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+      "retrieved_on": "2026-11-09"
+    }
+  }
+}
