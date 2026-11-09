@@ -37,6 +37,48 @@ def banner(n, title):
     print(f"\n{C['hdr']}[stage {n}] {title}{C['off']}")
 
 
+def take_sample(data, n):
+    """
+    Take a COHERENT subgraph, not the first n rows of each table.
+
+    Truncating each entity independently breaks referential integrity -- a
+    course_skill_link survives while the course it points at is cut, and the
+    validator then fails on data that is fine. A sample has to be closed under
+    the relationships it contains, so: pick n courses, keep only the edges and
+    links whose endpoints survived, then keep exactly the skills and resources
+    those links reach, plus the ancestors of each surviving skill so the taxonomy
+    stays rooted.
+    """
+    courses = data.get("course", [])[:n]
+    keep_codes = {c.code for c in courses}
+
+    edges = [e for e in data.get("prerequisite_edge", [])
+             if e.course in keep_codes and e.requires in keep_codes]
+    cs_links = [l for l in data.get("course_skill_link", []) if l.course in keep_codes]
+
+    all_skills = {sk.id: sk for sk in data.get("skill", [])}
+    keep_skills = set()
+    for l in cs_links:
+        sid, guard = l.skill, 0
+        while sid in all_skills and sid not in keep_skills and guard < 12:
+            keep_skills.add(sid)
+            sid = all_skills[sid].parent_skill
+            guard += 1
+
+    rs_links = [l for l in data.get("resource_skill_link", []) if l.skill in keep_skills]
+    keep_res = {l.resource for l in rs_links}
+
+    return {
+        "course": courses,
+        "prerequisite_edge": edges,
+        "academic_rule": data.get("academic_rule", [])[:n],
+        "skill": [all_skills[i] for i in all_skills if i in keep_skills],
+        "course_skill_link": [l for l in cs_links if l.skill in keep_skills],
+        "resource": [r for r in data.get("resource", []) if r.id in keep_res],
+        "resource_skill_link": rs_links,
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -83,6 +125,10 @@ def main() -> int:
         for f in sorted(os.listdir(cur_dir)):
             if f.lower().endswith(".pdf"):
                 meta = pdf_manifest.get(f, {})
+                if meta.get("parse") is False:
+                    print(f"  {C['dim']}{f}: registered as provenance only "
+                          f"(parse: false) — not auto-parsed{C['off']}")
+                    continue
                 if not meta.get("source_url"):
                     print(f"  {C['warn']}{f}: no entry in pdf_sources.json — "
                           f"parsed rows would have no source_url, so it is skipped{C['off']}")
@@ -101,9 +147,9 @@ def main() -> int:
         print(f"  {len(added)} course(s) added from PDF extraction "
               f"({len(pdf_courses) - len(added)} already present in CSV)")
     if args.sample:
-        for k in data:
-            data[k] = data[k][:args.sample]
-        print(f"  {C['warn']}sample mode: each entity capped at {args.sample}{C['off']}")
+        data = take_sample(data, args.sample)
+        print(f"  {C['warn']}sample mode: {args.sample} courses + their connected "
+              f"subgraph{C['off']}")
     for k, v in data.items():
         print(f"  {k:22s} {len(v):4d}")
     for n in loaders.PARSE_NOTES:
@@ -145,8 +191,25 @@ def main() -> int:
 
     # -------------------------------------------------------- stage 5: export
     banner(5, "export — seed data + chunks.jsonl (stops before embedding)")
+    # Clearing the output directory keeps a stale export from a previous run
+    # being mistaken for part of this one. But the directory is not always
+    # deletable -- a read-only mount, or a sandbox that permits writes and
+    # refuses unlinks -- and crashing at the export stage after the work is
+    # already done is the wrong response. Fall back to overwriting in place and
+    # say plainly what that means.
+    stale_warning = None
     if os.path.isdir(args.out):
-        shutil.rmtree(args.out)
+        try:
+            shutil.rmtree(args.out)
+        except (PermissionError, OSError) as exc:
+            before = {f for f in os.listdir(args.out)
+                      if os.path.isfile(os.path.join(args.out, f))}
+            stale_warning = (
+                f"could not clear {args.out} ({exc.__class__.__name__}: {exc}). "
+                f"Files written by this run are overwritten in place; any of the "
+                f"{len(before)} existing file(s) this run does not write are LEFT BEHIND "
+                f"and may be stale. run_manifest.json records which files this run wrote.")
+            print(f"  {C['warn']}{stale_warning}{C['off']}")
     summary = export(data, chunks, findings, args.out,
                      allow_illustrative=args.allow_illustrative)
     for k, n in summary["written"].items():
@@ -156,6 +219,7 @@ def main() -> int:
               f"{summary['illustrative_counts']} — pass --allow-illustrative to include{C['off']}")
 
     summary["run"] = {"started": today, "programme": args.programme,
+                      "stale_output_warning": stale_warning,
                       "sample": args.sample or None,
                       "allow_illustrative": args.allow_illustrative,
                       "raw_inventory": [{"file": r, "bytes": b} for r, b in inventory],

@@ -49,7 +49,18 @@ def normalise_credits(raw) -> Tuple[Optional[float], Optional[str], Optional[str
     if raw is None or (isinstance(raw, str) and not raw.strip()):
         return None, None, None
     s = str(raw).strip()
-    ltp = re.match(r"^\s*(\d+)\s*[-:/]\s*(\d+)\s*[-:/]\s*(\d+)\s*$", s)
+    N = r"\d+(?:\.\d+)?"
+    # Four-part L-T-P-C, e.g. "2-1-0-3" or "3-0.5-0-3.5". IIT Bhilai's Courses of
+    # Study prints this form, and the fourth part IS the credit total -- so unlike
+    # the three-part form there is nothing to infer.
+    ltpc = re.match(rf"^\s*({N})\s*[-:/]\s*({N})\s*[-:/]\s*({N})\s*[-:/]\s*({N})\s*$", s)
+    if ltpc:
+        l, t, pr, c = ltpc.groups()
+        return float(c), f"{l}-{t}-{pr}", None
+    # Three-part L-T-P with no stated total. Deliberately does NOT compute one:
+    # institutes weight practicals differently (L+T+P vs L+T+P/2), so a number
+    # here would be a guess dressed as data.
+    ltp = re.match(rf"^\s*({N})\s*[-:/]\s*({N})\s*[-:/]\s*({N})\s*$", s)
     if ltp:
         return None, f"{ltp.group(1)}-{ltp.group(2)}-{ltp.group(3)}", None
     m = re.search(r"(\d+(?:\.\d+)?)", s)

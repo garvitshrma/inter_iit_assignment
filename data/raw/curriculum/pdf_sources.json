@@ -1,9 +1,9 @@
 {
-  "_comment": "Maps each PDF dropped into data/raw/curriculum/ to the page it was downloaded from. A PDF with no entry here is SKIPPED by the pipeline, because rows parsed from it would have no source_url and would fail validation. Add an entry, then re-run.",
-  "_example": {
-    "courses-of-study-oct-2026.pdf": {
-      "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
-      "retrieved_on": "2026-11-09"
-    }
+  "_comment": "Maps each PDF in this directory to the page it was downloaded from. A PDF with no entry here is SKIPPED, because rows parsed from it would carry no source_url and would fail validation. Set \"parse\": false when the PDF is the PROVENANCE for manually-transcribed rows rather than something to auto-parse.",
+  "Courses_Of_Study.pdf": {
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "parse": false,
+    "parse_note": "208 pages covering every programme at the institute. Auto-parsing the table layout would pull course rows from Computer Science, Electrical, Materials, Mechatronics and the postgraduate programmes into a dataset the brief requires to cover ONE programme in depth. The Mechanical programme rows were therefore transcribed by hand from pages 32-33 and the course-description section, and this PDF is recorded as their provenance. Run tools/crosscheck_pdf.py to verify the transcription against the PDF mechanically."
   }
 }

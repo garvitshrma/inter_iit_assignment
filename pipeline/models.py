@@ -22,7 +22,8 @@ VERIFICATION_STATES = ("unverified", "human_verified", "disputed")
 PREREQ_KINDS = ("hard", "recommended", "concurrent")
 SKILL_DEPTHS = ("intro", "working", "advanced")
 SKILL_ORIGINS = ("syllabus_phrase", "author_inferred")
-COURSE_TYPES = ("core", "elective", "open", "programme-core", "institute-core")
+COURSE_TYPES = ("core", "elective", "open", "programme-core", "institute-core",
+                "non-graded")
 MODES = ("lecture", "lecture-tutorial", "lecture-lab", "lab", "project", "unknown")
 
 
@@ -57,6 +58,11 @@ class Course:
     objectives: Optional[str] = None
     syllabus_text: Optional[str] = None
     programme: Optional[str] = None
+    # The institute publishes an "Overlap with" line per course and enforces a 25%
+    # ceiling (UG Manual 2.2.6). Not in the brief's schema, but it is published
+    # data that directly constrains what a student may register for, so dropping
+    # it would lose a real eligibility rule.
+    overlap_with: Optional[str] = None
     prov: Provenance = field(default_factory=Provenance)
 
 

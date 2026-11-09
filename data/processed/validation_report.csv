@@ -1,0 +1,18 @@
+check,severity,entity,record_id,message
+credits_numeric,WARN,course,NCN100,"no credits: expected for a non-graded course, which carries units rather than credits"
+credits_numeric,WARN,course,LAN103,"no credits: expected for a non-graded course, which carries units rather than credits"
+orphan_course_no_skill,WARN,course,MAL100,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,CYL100,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,PHL101,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,CYL101,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,CYP102,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,PHP102,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,EEL101,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,MAL101,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,ECL101,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,BML101,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,LAL100,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,LAL101,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,UGQ301,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,NCN100,no course_skill_link; course contributes nothing to gap analysis
+orphan_course_no_skill,WARN,course,LAN103,no course_skill_link; course contributes nothing to gap analysis

@@ -135,8 +135,17 @@ class Validator:
                           f"credits value {c.credits_raw!r} is not numeric")
                 continue
             if c.credits is None and c.credit_structure is None:
-                self._add("credits_numeric", ERROR, "course", c.code,
-                          "neither credits nor credit_structure present")
+                # Non-graded core courses carry "units" earned through academic and
+                # co-curricular activity and are published with no L-T-P-C at all
+                # (UG Manual 2.2.2 item 7). Absent credits is the correct state for
+                # them, so erroring would force a fabricated number into the data.
+                if c.course_type == "non-graded":
+                    self._add("credits_numeric", WARN, "course", c.code,
+                              "no credits: expected for a non-graded course, which carries "
+                              "units rather than credits")
+                else:
+                    self._add("credits_numeric", ERROR, "course", c.code,
+                              "neither credits nor credit_structure present")
                 continue
             if c.credits is not None:
                 if not isinstance(c.credits, (int, float)) or isinstance(c.credits, bool):

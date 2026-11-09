@@ -90,11 +90,38 @@ def load_courses_csv(path: str) -> List[Course]:
             objectives=normalise_text(row.get("objectives")),
             syllabus_text=normalise_text(row.get("syllabus_text")),
             programme=normalise_text(row.get("programme")),
+            overlap_with=normalise_text(row.get("overlap_with")),
             prov=_prov(row)))
     return out
 
 
-def load_prereqs_csv(path: str) -> List[PrerequisiteEdge]:
+CORRECTIONS_APPLIED: List[dict] = []
+CORRECTIONS_UNUSED: List[dict] = []
+
+
+def load_corrections(path: str) -> List[dict]:
+    """
+    Source documents contain real defects: a prerequisite naming a course code
+    that does not exist, a credit load printed two different ways in two places.
+    Silently repairing those would destroy the dataset's whole claim, and
+    propagating them makes the pipeline permanently red.
+
+    So corrections live in their own file, each with a reason and its own
+    provenance. The loader applies them and stamps the original value into the
+    affected record's source_note, so the repair is always visible in the data.
+    Supported actions: remap (replace the value) and drop (omit the record).
+    """
+    rows = _read_csv(path)
+    out = []
+    for r in rows:
+        if not (r.get("entity") or "").strip():
+            continue
+        r["_used"] = False
+        out.append(r)
+    return out
+
+
+def load_prereqs_csv(path: str, corrections: Optional[List[dict]] = None) -> List[PrerequisiteEdge]:
     out = []
     for row in _read_csv(path):
         course, requires = normalise_code(row.get("course")), normalise_code(row.get("requires"))
@@ -107,8 +134,38 @@ def load_prereqs_csv(path: str) -> List[PrerequisiteEdge]:
                                                 "soft": "recommended"})
         if problem:
             _note(f"{course}->{requires}: kind {problem}")
+        prov = _prov(row)
+        action = None
+        for c in (corrections or []):
+            if c["entity"] != "prerequisite_edge":
+                continue
+            if normalise_code(c.get("match_course")) != course:
+                continue
+            if normalise_code(c.get("match_requires")) != requires:
+                continue
+            c["_used"] = True
+            action = (c.get("action") or "remap").strip().lower()
+            if action == "drop":
+                CORRECTIONS_APPLIED.append(
+                    {"entity": "prerequisite_edge", "record": f"{course}->{requires}",
+                     "action": "drop", "reason": c.get("reason", "")})
+                _note(f"{course}->{requires}: DROPPED per corrections.csv — {c.get('reason','')}")
+                break
+            new = normalise_code(c.get("new_value")) or requires
+            CORRECTIONS_APPLIED.append(
+                {"entity": "prerequisite_edge", "record": f"{course}->{requires}",
+                 "action": "remap", "from": requires, "to": new,
+                 "reason": c.get("reason", "")})
+            _note(f"{course}->{requires}: remapped to {new} per corrections.csv")
+            prov.source_note = ((prov.source_note or "") +
+                                f" | CORRECTED: source prints {requires!r}; "
+                                f"remapped to {new!r} — {c.get('reason','')}").strip(" |")
+            requires = new
+            break
+        if action == "drop":
+            continue
         out.append(PrerequisiteEdge(course=course, requires=requires,
-                                    kind=kind or "hard", prov=_prov(row)))
+                                    kind=kind or "hard", prov=prov))
     return out
 
 
@@ -271,12 +328,22 @@ def parse_curriculum_pdf(path: str, programme: str, source_url: str,
 
 def load_dataset(raw_dir: str) -> Dict[str, list]:
     j = lambda *p: os.path.join(raw_dir, *p)
-    return {
+    corrections = load_corrections(j("curriculum", "corrections.csv"))
+    data = {
         "course": load_courses_csv(j("curriculum", "courses.csv")),
-        "prerequisite_edge": load_prereqs_csv(j("curriculum", "prerequisites.csv")),
+        "prerequisite_edge": load_prereqs_csv(j("curriculum", "prerequisites.csv"), corrections),
         "academic_rule": load_rules_csv(j("rules", "academic_rules.csv")),
         "skill": load_skills_csv(j("curriculum", "skills.csv")),
         "course_skill_link": load_course_skill_csv(j("curriculum", "course_skills.csv")),
         "resource": load_resources_csv(j("resources", "resources.csv")),
         "resource_skill_link": load_resource_skill_csv(j("resources", "resource_skills.csv")),
     }
+    # A correction that matched nothing is a stale repair for data that has since
+    # changed. Surfaced rather than ignored, so corrections.csv cannot rot.
+    for c in corrections:
+        if not c["_used"]:
+            CORRECTIONS_UNUSED.append(c)
+            _note(f"UNUSED correction for {c['entity']} "
+                  f"{c.get('match_course','')}->{c.get('match_requires','')}: "
+                  f"matched no record (stale?)")
+    return data

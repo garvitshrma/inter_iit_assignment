@@ -41,7 +41,10 @@ ever commercial.
 
 ## Institute sources (course catalogue and academic rules)
 
-> **Status: not yet collected.** See the *Known gaps* section of the README. The institute's `robots.txt` disallows automated retrieval, so these records must be entered from documents opened by a human in a browser. No course or rule records have been fabricated to fill the gap.
+| Source URL | Retrieved | source_type | Records |
+|---|---|---|---:|
+| https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs | 2026-11-09 | `manual` | 42 |
+| https://www.iitbhilai.ac.in/index.php?pid=ug_manual | 2026-11-09 | `manual` | 34 |
 
 ## Open learning resources
 

@@ -1,27 +1,29 @@
 # Part D — Data quality report
 
-Generated from `data/fixtures/sample_out/run_manifest.json` and `validation_report.json`. Run of 2026-11-09; programme: B.Tech Mechanical Engineering; elapsed 0.02s.
+Generated from `data/processed/run_manifest.json` and `validation_report.json`. Run of 2026-11-09; programme: B.Tech Mechanical Engineering; elapsed 0.03s.
 
 ## 1. Volumes
 
 | Entity | Records exported |
 |---|---:|
-| course | 0 |
-| prerequisite_edge | 0 |
+| course | 41 |
+| prerequisite_edge | 6 |
 | skill | 60 |
-| course_skill_link | 0 |
-| academic_rule | 0 |
+| course_skill_link | 66 |
+| academic_rule | 35 |
 | resource | 56 |
 | resource_skill_link | 109 |
-| **chunks** | **138** |
-
-Placeholder rows held back from the real export (`source_type=illustrative`): academic_rule=4, course=6, course_skill_link=19, prerequisite_edge=5.
+| **chunks** | **223** |
 
 ## 2. Field completeness
 
 ### `course`
 
-_no records_
+`n = 41`
+
+- **100% filled (11):** `code`, `course_type`, `dept`, `mode`, `programme`, `retrieved_on`, `source_note`, `source_type`, `source_url`, `title`, `verification_status`
+- **Partially filled:** `credits` 95.1%, `credit_structure` 95.1%, `semester_offered` 85.4%, `syllabus_text` 53.7%, `overlap_with` 24.4%
+- **0% filled (4):** `credits_raw`, `objectives`, `verified_by`, `verified_on`
 
 ### `resource`
 
@@ -33,7 +35,11 @@ _no records_
 
 ### `academic_rule`
 
-_no records_
+`n = 35`
+
+- **100% filled (10):** `applies_to`, `category`, `clause_ref`, `id`, `retrieved_on`, `source_note`, `source_type`, `source_url`, `text`, `verification_status`
+- **Partially filled:** `numeric_limit` 74.3%, `unit` 74.3%
+- **0% filled (2):** `verified_by`, `verified_on`
 
 ### `skill`
 
@@ -45,11 +51,17 @@ _no records_
 
 ### `prerequisite_edge`
 
-_no records_
+`n = 6`
+
+- **100% filled (8):** `course`, `kind`, `requires`, `retrieved_on`, `source_note`, `source_type`, `source_url`, `verification_status`
+- **0% filled (2):** `verified_by`, `verified_on`
 
 ### `course_skill_link`
 
-_no records_
+`n = 66`
+
+- **100% filled (9):** `course`, `depth`, `evidence`, `retrieved_on`, `skill`, `source_note`, `source_type`, `source_url`, `verification_status`
+- **0% filled (2):** `verified_by`, `verified_on`
 
 ### `resource_skill_link`
 
@@ -61,18 +73,20 @@ _no records_
 
 ## 3. Checks the validator runs, and what they caught
 
-16 checks ran. Result: **0 error(s), 4 warning(s)**.
+18 checks ran. Result: **0 error(s), 17 warning(s)**.
 
 | Check | Severity | Hits |
 |---|---|---:|
+| `brief_minimums` | — | 0 |
 | `course_code_shape` | — | 0 |
 | `credits_match_ltp` | — | 0 |
-| `credits_numeric` | — | 0 |
+| `credits_numeric` | WARN | 2 |
 | `duplicate_course_code` | — | 0 |
 | `duplicate_resource_url` | — | 0 |
 | `enum_values` | — | 0 |
-| `illustrative_rows_flagged` | WARN | 4 |
+| `illustrative_rows_flagged` | — | 0 |
 | `link_targets_exist` | — | 0 |
+| `orphan_course_no_skill` | WARN | 15 |
 | `prereq_no_cycle` | — | 0 |
 | `prereq_target_exists` | — | 0 |
 | `provenance_complete` | — | 0 |
@@ -84,20 +98,54 @@ _no records_
 
 **Warnings (reported, do not block):**
 
-- `illustrative_rows_flagged` — course `6 record(s)`: source_type=illustrative: placeholders, withheld from export unless --allow-illustrative is passed [DEMO101, DEMO102, DEMO103, DEMO104, DEMO105, +1 more]
-- `illustrative_rows_flagged` — prerequisite_edge `5 record(s)`: source_type=illustrative: placeholders, withheld from export unless --allow-illustrative is passed [DEMO103->DEMO101, DEMO103->DEMO102, DEMO106->DEMO104, DEMO105->DEMO104, DEMO102->DEMO101]
-- `illustrative_rows_flagged` — academic_rule `4 record(s)`: source_type=illustrative: placeholders, withheld from export unless --allow-illustrative is passed [DEMO-RULE-01, DEMO-RULE-02, DEMO-RULE-03, DEMO-RULE-04]
-- `illustrative_rows_flagged` — course_skill_link `19 record(s)`: source_type=illustrative: placeholders, withheld from export unless --allow-illustrative is passed [DEMO101~SK-LAWS, DEMO101~SK-PROPS, DEMO101~SK-CYCLES, DEMO102~SK-FLUIDSTAT, DEMO102~SK-VISC, +14 more]
+- `credits_numeric` — course `NCN100`: no credits: expected for a non-graded course, which carries units rather than credits
+- `credits_numeric` — course `LAN103`: no credits: expected for a non-graded course, which carries units rather than credits
+- `orphan_course_no_skill` — course `MAL100`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `CYL100`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `PHL101`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `CYL101`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `CYP102`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `PHP102`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `EEL101`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `MAL101`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `ECL101`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `BML101`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `LAL100`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `LAL101`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `UGQ301`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `NCN100`: no course_skill_link; course contributes nothing to gap analysis
+- `orphan_course_no_skill` — course `LAN103`: no course_skill_link; course contributes nothing to gap analysis
 
 ## 4. Chunk profile
 
-- 138 chunks; token **estimate** (characters ÷ 4, no tokenizer and no model call): min 33, median 66, max 166, total 9,789
-- By type: `course_card`=6, `objectives`=6, `resource_desc`=56, `rule`=4, `skill_node`=60, `syllabus`=6
-- By source type: `illustrative`=22, `manual`=60, `open-licence`=56
-- By verification status: `unverified`=138
+- 223 chunks; token **estimate** (characters ÷ 4, no tokenizer and no model call): min 24, median 68, max 286, total 19,289
+- By type: `course_card`=41, `resource_desc`=56, `rule`=35, `skill_node`=60, `syllabus`=31
+- By source type: `manual`=167, `open-licence`=56
+- By verification status: `unverified`=223
 - Academic rules are never split across chunks, so every constraint stays quotable in full. Course syllabi are split on sentence boundaries with a ~150-character overlap.
 
-## 6. How a teammate verifies a sample
+## 5. What the parser reported
+
+- MEP376->ME334: remapped to MEL334 per corrections.csv
+- MEL414->MEL111: DROPPED per corrections.csv — MEL111 appears nowhere in the Courses of Study except as this course's prerequisite and overlap. No candidate course can be identified without guessing, so the edge is omitted rather than remapped. The printed value is preserved in prerequisites.csv source_note and reported in DATA_QUALITY.md.
+
+## 6. Corrections applied to source defects
+
+Source documents contain real errors. Each is transcribed AS PRINTED and repaired here, with a reason, so the defect stays visible in the data. Full write-up in `SOURCE_DEFECTS.md`.
+
+| Record | Action | Reason |
+|---|---|---|
+| `MEP376 -> ME334` | remap to `MEL334` | ME334 is not a course code in the Courses of Study. The only course whose code differs by the missing 'L' is MEL334 Theory of Mechanisms and Machines, whose vibration and dynamics content matches this lab's experiments. Treated as a typographical omission of the 'L' in the published document. |
+| `MEL414 -> MEL111` | drop | MEL111 appears nowhere in the Courses of Study except as this course's prerequisite and overlap. No candidate course can be identified without guessing, so the edge is omitted rather than remapped. The printed value is preserved in prerequisites.csv source_note and reported in DATA_QUALITY.md. |
+
+## 7. Independent cross-check of the hand transcription
+
+The curriculum was transcribed by hand, so `tools/crosscheck_pdf.py` re-reads the source PDF with pdfplumber and diffs every four-part L-T-P-C value it can extract against `courses.csv`. It writes nothing to the dataset.
+
+- **33 courses verified against the PDF, 0 disagreements.**
+- Full output: `PDF_CROSSCHECK.md`. Re-run with `python tools/crosscheck_pdf.py`.
+
+## 8. How a teammate verifies a sample
 
 Every record carries `source_url`, `retrieved_on`, `source_type` and `verification_status`. To verify a sample:
 

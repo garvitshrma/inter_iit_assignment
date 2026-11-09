@@ -1,0 +1,74 @@
+[
+  {
+    "course": "MEL304",
+    "requires": "MAL100",
+    "kind": "hard",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "source_note": "printed as 'Pre-requisite(s): MAL100-Mathematics-I, MAL101-Mathematics-II'",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
+  },
+  {
+    "course": "MEL304",
+    "requires": "MAL101",
+    "kind": "hard",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "source_note": "printed as 'Pre-requisite(s): MAL100-Mathematics-I, MAL101-Mathematics-II'",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
+  },
+  {
+    "course": "MEP376",
+    "requires": "MEL232",
+    "kind": "hard",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "source_note": "printed as 'Pre-requisite(s): MEL232, ME334 - concurrent'",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
+  },
+  {
+    "course": "MEP376",
+    "requires": "MEL334",
+    "kind": "concurrent",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "source_note": "printed VERBATIM as 'ME334 - concurrent'. ME334 is not a course code in the Courses of Study; see corrections.csv | CORRECTED: source prints 'ME334'; remapped to 'MEL334' — ME334 is not a course code in the Courses of Study. The only course whose code differs by the missing 'L' is MEL334 Theory of Mechanisms and Machines, whose vibration and dynamics content matches this lab's experiments. Treated as a typographical omission of the 'L' in the published document.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
+  },
+  {
+    "course": "MEL416",
+    "requires": "MEL211",
+    "kind": "hard",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "source_note": "printed as prose, 'Pre-requisite(s): Thermodynamics (MEL211)'; the code was extracted",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
+  },
+  {
+    "course": "MEL612",
+    "requires": "MEL313",
+    "kind": "hard",
+    "source_url": "https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs",
+    "retrieved_on": "2026-11-09",
+    "source_type": "manual",
+    "source_note": "printed in the UG Manual worked example, section 2.2.5, as 'Pre-requisite(s): MEL313 or equivalent'",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
+  }
+]

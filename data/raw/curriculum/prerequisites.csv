@@ -1,1 +1,8 @@
 course,requires,kind,source_url,retrieved_on,source_type,source_note,verification_status,verified_on,verified_by
+MEL304,MAL100,hard,https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs,2026-11-09,manual,"printed as 'Pre-requisite(s): MAL100-Mathematics-I, MAL101-Mathematics-II'",unverified,,
+MEL304,MAL101,hard,https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs,2026-11-09,manual,"printed as 'Pre-requisite(s): MAL100-Mathematics-I, MAL101-Mathematics-II'",unverified,,
+MEP376,MEL232,hard,https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs,2026-11-09,manual,"printed as 'Pre-requisite(s): MEL232, ME334 - concurrent'",unverified,,
+MEP376,ME334,concurrent,https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs,2026-11-09,manual,printed VERBATIM as 'ME334 - concurrent'. ME334 is not a course code in the Courses of Study; see corrections.csv,unverified,,
+MEL414,MEL111,hard,https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs,2026-11-09,manual,printed as 'Pre-requisite(s): MEL111 or equivalent'. MEL111 does not appear as a course anywhere in the Courses of Study; see corrections.csv,unverified,,
+MEL416,MEL211,hard,https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs,2026-11-09,manual,"printed as prose, 'Pre-requisite(s): Thermodynamics (MEL211)'; the code was extracted",unverified,,
+MEL612,MEL313,hard,https://www.iitbhilai.ac.in/index.php?pid=new_schedule_programs,2026-11-09,manual,"printed in the UG Manual worked example, section 2.2.5, as 'Pre-requisite(s): MEL313 or equivalent'",unverified,,

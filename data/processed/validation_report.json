@@ -1,9 +1,121 @@
 [
   {
-    "check": "brief_minimums",
-    "severity": "ERROR",
+    "check": "credits_numeric",
+    "severity": "WARN",
     "entity": "course",
-    "record_id": "-",
-    "message": "brief requires at least 15 courses; dataset has 0"
+    "record_id": "NCN100",
+    "message": "no credits: expected for a non-graded course, which carries units rather than credits"
+  },
+  {
+    "check": "credits_numeric",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "LAN103",
+    "message": "no credits: expected for a non-graded course, which carries units rather than credits"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "MAL100",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "CYL100",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "PHL101",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "CYL101",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "CYP102",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "PHP102",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "EEL101",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "MAL101",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "ECL101",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "BML101",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "LAL100",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "LAL101",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "UGQ301",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "NCN100",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
+  },
+  {
+    "check": "orphan_course_no_skill",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "LAN103",
+    "message": "no course_skill_link; course contributes nothing to gap analysis"
   }
 ]

@@ -1,0 +1,248 @@
+{
+  "written": {
+    "course": 41,
+    "prerequisite_edge": 6,
+    "skill": 60,
+    "course_skill_link": 66,
+    "academic_rule": 35,
+    "resource": 56,
+    "resource_skill_link": 109,
+    "chunks": 223
+  },
+  "fill_rates": {
+    "course": {
+      "n_records": 41,
+      "fields": {
+        "code": 100.0,
+        "title": 100.0,
+        "dept": 100.0,
+        "credits": 95.1,
+        "credit_structure": 95.1,
+        "credits_raw": 0.0,
+        "semester_offered": 85.4,
+        "course_type": 100.0,
+        "mode": 100.0,
+        "objectives": 0.0,
+        "syllabus_text": 53.7,
+        "programme": 100.0,
+        "overlap_with": 24.4,
+        "source_url": 100.0,
+        "retrieved_on": 100.0,
+        "source_type": 100.0,
+        "source_note": 100.0,
+        "verification_status": 100.0,
+        "verified_on": 0.0,
+        "verified_by": 0.0
+      }
+    },
+    "prerequisite_edge": {
+      "n_records": 6,
+      "fields": {
+        "course": 100.0,
+        "requires": 100.0,
+        "kind": 100.0,
+        "source_url": 100.0,
+        "retrieved_on": 100.0,
+        "source_type": 100.0,
+        "source_note": 100.0,
+        "verification_status": 100.0,
+        "verified_on": 0.0,
+        "verified_by": 0.0
+      }
+    },
+    "academic_rule": {
+      "n_records": 35,
+      "fields": {
+        "id": 100.0,
+        "category": 100.0,
+        "text": 100.0,
+        "numeric_limit": 74.3,
+        "unit": 74.3,
+        "applies_to": 100.0,
+        "clause_ref": 100.0,
+        "source_url": 100.0,
+        "retrieved_on": 100.0,
+        "source_type": 100.0,
+        "source_note": 100.0,
+        "verification_status": 100.0,
+        "verified_on": 0.0,
+        "verified_by": 0.0
+      }
+    },
+    "skill": {
+      "n_records": 60,
+      "fields": {
+        "id": 100.0,
+        "name": 100.0,
+        "level": 98.3,
+        "parent_skill": 98.3,
+        "origin": 100.0,
+        "source_url": 0.0,
+        "retrieved_on": 0.0,
+        "source_type": 100.0,
+        "source_note": 100.0,
+        "verification_status": 100.0,
+        "verified_on": 0.0,
+        "verified_by": 0.0
+      }
+    },
+    "course_skill_link": {
+      "n_records": 66,
+      "fields": {
+        "course": 100.0,
+        "skill": 100.0,
+        "depth": 100.0,
+        "evidence": 100.0,
+        "source_url": 100.0,
+        "retrieved_on": 100.0,
+        "source_type": 100.0,
+        "source_note": 100.0,
+        "verification_status": 100.0,
+        "verified_on": 0.0,
+        "verified_by": 0.0
+      }
+    },
+    "resource": {
+      "n_records": 56,
+      "fields": {
+        "id": 100.0,
+        "title": 100.0,
+        "provider": 100.0,
+        "licence_name": 100.0,
+        "licence_version": 35.7,
+        "licence_url": 35.7,
+        "licence_verified_on": 100.0,
+        "fmt": 100.0,
+        "duration_value": 12.5,
+        "duration_unit": 12.5,
+        "url": 100.0,
+        "instructor": 16.1,
+        "host_institute": 53.6,
+        "description": 16.1,
+        "source_url": 100.0,
+        "retrieved_on": 100.0,
+        "source_type": 100.0,
+        "source_note": 100.0,
+        "verification_status": 100.0,
+        "verified_on": 0.0,
+        "verified_by": 0.0
+      }
+    },
+    "resource_skill_link": {
+      "n_records": 109,
+      "fields": {
+        "resource": 100.0,
+        "skill": 100.0,
+        "level": 100.0,
+        "source_url": 100.0,
+        "retrieved_on": 100.0,
+        "source_type": 100.0,
+        "source_note": 100.0,
+        "verification_status": 100.0,
+        "verified_on": 0.0,
+        "verified_by": 0.0
+      }
+    }
+  },
+  "illustrative_counts": {},
+  "chunk_type_counts": {
+    "course_card": 41,
+    "syllabus": 31,
+    "rule": 35,
+    "resource_desc": 56,
+    "skill_node": 60
+  },
+  "chunk_token_estimate_total": 19289,
+  "run": {
+    "started": "2026-11-09",
+    "programme": "B.Tech Mechanical Engineering",
+    "stale_output_warning": "could not clear data/processed (PermissionError: [Errno 1] Operation not permitted: 'academic_rule.csv'). Files written by this run are overwritten in place; any of the 18 existing file(s) this run does not write are LEFT BEHIND and may be stale. run_manifest.json records which files this run wrote.",
+    "sample": null,
+    "allow_illustrative": false,
+    "raw_inventory": [
+      {
+        "file": "curriculum/Courses_Of_Study.pdf",
+        "bytes": 2402620
+      },
+      {
+        "file": "curriculum/corrections.csv",
+        "bytes": 979
+      },
+      {
+        "file": "curriculum/course_skills.csv",
+        "bytes": 24036
+      },
+      {
+        "file": "curriculum/courses.TEMPLATE.csv",
+        "bytes": 691
+      },
+      {
+        "file": "curriculum/courses.csv",
+        "bytes": 40068
+      },
+      {
+        "file": "curriculum/pdf_sources.json",
+        "bytes": 1031
+      },
+      {
+        "file": "curriculum/prerequisites.TEMPLATE.csv",
+        "bytes": 294
+      },
+      {
+        "file": "curriculum/prerequisites.csv",
+        "bytes": 1584
+      },
+      {
+        "file": "curriculum/skills.csv",
+        "bytes": 9602
+      },
+      {
+        "file": "resources/resource_skills.csv",
+        "bytes": 25714
+      },
+      {
+        "file": "resources/resources.csv",
+        "bytes": 30245
+      },
+      {
+        "file": "rules/UG_Manual.pdf",
+        "bytes": 380035
+      },
+      {
+        "file": "rules/academic_rules.TEMPLATE.csv",
+        "bytes": 421
+      },
+      {
+        "file": "rules/academic_rules.csv",
+        "bytes": 16277
+      }
+    ],
+    "checks_run": [
+      "brief_minimums",
+      "course_code_shape",
+      "credits_match_ltp",
+      "credits_numeric",
+      "duplicate_course_code",
+      "duplicate_resource_url",
+      "enum_values",
+      "illustrative_rows_flagged",
+      "link_targets_exist",
+      "orphan_course_no_skill",
+      "prereq_no_cycle",
+      "prereq_target_exists",
+      "provenance_complete",
+      "resource_licence_recorded",
+      "rule_quotable",
+      "semester_range",
+      "skill_parent_exists",
+      "skill_taxonomy_no_cycle"
+    ],
+    "n_errors": 0,
+    "n_warnings": 17,
+    "parse_notes": [
+      "MEP376->ME334: remapped to MEL334 per corrections.csv",
+      "MEL414->MEL111: DROPPED per corrections.csv \u2014 MEL111 appears nowhere in the Courses of Study except as this course's prerequisite and overlap. No candidate course can be identified without guessing, so the edge is omitted rather than remapped. The printed value is preserved in prerequisites.csv source_note and reported in DATA_QUALITY.md."
+    ],
+    "elapsed_seconds": 1.03
+  }
+}

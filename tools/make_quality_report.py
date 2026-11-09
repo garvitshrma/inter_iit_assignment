@@ -122,7 +122,44 @@ def main():
             A(f"- {n}")
         A("")
 
-    A("## 6. How a teammate verifies a sample\n")
+    # corrections + independent cross-check
+    import csv as _csv
+    corr_path = "data/raw/curriculum/corrections.csv"
+    if os.path.exists(corr_path):
+        with open(corr_path, newline="", encoding="utf-8-sig") as fh:
+            corr = list(_csv.DictReader(fh))
+        if corr:
+            A("## 6. Corrections applied to source defects\n")
+            A("Source documents contain real errors. Each is transcribed AS PRINTED and "
+              "repaired here, with a reason, so the defect stays visible in the data. "
+              "Full write-up in `SOURCE_DEFECTS.md`.\n")
+            A("| Record | Action | Reason |")
+            A("|---|---|---|")
+            for c in corr:
+                rec = f"{c.get('match_course','')} -> {c.get('match_requires','')}"
+                act = c.get("action", "")
+                if act == "remap":
+                    act = f"remap to `{c.get('new_value','')}`"
+                A(f"| `{rec}` | {act} | {c.get('reason','')} |")
+            A("")
+
+    xc = "docs/PDF_CROSSCHECK.md"
+    if os.path.exists(xc):
+        head = open(xc, encoding="utf-8").read()
+        import re as _re
+        m = _re.search(r"\| L-T-P-C agrees with the PDF \| (\d+) \|", head)
+        d = _re.search(r"\| L-T-P-C disagrees \| (\d+) \|", head)
+        A("## 7. Independent cross-check of the hand transcription\n")
+        A("The curriculum was transcribed by hand, so `tools/crosscheck_pdf.py` re-reads "
+          "the source PDF with pdfplumber and diffs every four-part L-T-P-C value it can "
+          "extract against `courses.csv`. It writes nothing to the dataset.\n")
+        if m and d:
+            A(f"- **{m.group(1)} courses verified against the PDF, "
+              f"{d.group(1)} disagreements.**")
+        A("- Full output: `PDF_CROSSCHECK.md`. Re-run with `python tools/crosscheck_pdf.py`.")
+        A("")
+
+    A("## 8. How a teammate verifies a sample\n")
     A("Every record carries `source_url`, `retrieved_on`, `source_type` and "
       "`verification_status`. To verify a sample:\n")
     A("1. `shuf -n 10 data/processed/resource.csv` (or open the CSV and pick rows at random).")
