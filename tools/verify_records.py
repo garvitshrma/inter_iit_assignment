@@ -16,7 +16,7 @@ works if the flag means what it says.
 Per record: [y] matches the source  [n] does not  [s] skip  [q] save and quit
 A 'n' prompts for a note, which is appended to the record's source_note.
 """
-import argparse, csv, datetime, os, random, sys, webbrowser
+import argparse, csv, datetime, os, random, re, sys, webbrowser
 
 FILES = {
     "course":              ("data/raw/curriculum/courses.csv", "code",
@@ -33,6 +33,30 @@ FILES = {
     "resource_skill_link": ("data/raw/resources/resource_skills.csv", None,
                             ["resource","skill","level"]),
 }
+
+
+def _open_target(r):
+    """
+    What --open should actually open. A source_locator naming a PDF in data/raw/
+    wins, opened at its page: that is where the record can be checked. The web
+    URL is only the document's origin and lands on a listing page.
+    """
+    loc = (r.get("source_locator") or "").strip()
+    m = re.match(r"([A-Za-z0-9_\-]+\.pdf)", loc)
+    if m:
+        name = m.group(1)
+        for base in ("data/raw/curriculum", "data/raw/rules", "data/raw/resources"):
+            cand = os.path.join(base, name)
+            if os.path.exists(cand):
+                # Prefer the course-description page over the structure table:
+                # the description carries the title, credits, prerequisites and
+                # syllabus, so it is what a reviewer can actually check against.
+                pg = (re.search(r"p\.(\d+) \(course description\)", loc)
+                      or re.search(r"p\.(\d+)", loc))
+                url = "file:///" + os.path.abspath(cand).replace("\\", "/").lstrip("/")
+                return url + (f"#page={pg.group(1)}" if pg else "")
+    u = (r.get("source_url") or "").strip()
+    return u if u.startswith("http") else None
 
 
 def load(path):
@@ -72,6 +96,12 @@ def main():
     ap.add_argument("--seed", type=int, default=None, help="make the sample reproducible")
     ap.add_argument("--status", action="store_true", help="show counts and exit")
     ap.add_argument("--open", action="store_true", help="open each source URL in a browser")
+    ap.add_argument("--mark", help="comma-separated record ids to mark in one go, "
+                                   "e.g. --mark MEL211,MEL212,MEL251")
+    ap.add_argument("--as", dest="as_status", default="human_verified",
+                    choices=["human_verified", "disputed", "unverified"],
+                    help="state to set with --mark (default: human_verified)")
+    ap.add_argument("--note", default="", help="note to append when marking disputed")
     a = ap.parse_args()
 
     if a.status or not a.by:
@@ -81,6 +111,38 @@ def main():
         return 0
 
     today = datetime.date.today().isoformat()
+
+    # ---- bulk mark a named list -------------------------------------------
+    if a.mark:
+        wanted = {x.strip().upper() for x in a.mark.split(",") if x.strip()}
+        hit, changed = set(), 0
+        for ent, (path, key, _fields) in FILES.items():
+            if not os.path.exists(path):
+                continue
+            rows, header = load(path)
+            touched = False
+            for r in rows:
+                ident = (r.get("code") or r.get("id") or "").strip().upper()
+                if ident and ident in wanted:
+                    r["verification_status"] = a.as_status
+                    if a.as_status == "unverified":
+                        r["verified_on"] = r["verified_by"] = ""
+                    else:
+                        r["verified_on"], r["verified_by"] = today, a.by
+                    if a.as_status == "disputed" and a.note:
+                        r["source_note"] = ((r.get("source_note") or "") +
+                            f" | DISPUTED {today} by {a.by}: {a.note}").strip(" |")
+                    hit.add(ident); changed += 1; touched = True
+            if touched:
+                save(path, rows, header)
+        missed = sorted(wanted - hit)
+        print(f"marked {changed} record(s) as {a.as_status}")
+        if missed:
+            print(f"NOT FOUND (nothing marked for these): {', '.join(missed)}")
+        print()
+        show_status()
+        return 0
+
     rng = random.Random(a.seed)
     ents = [a.entity] if a.entity else sorted(FILES)
 
@@ -122,15 +184,17 @@ def main():
                 if len(val) > 300:
                     val = val[:300] + " …"
                 print(f"  {f:18s} {val}")
-            print(f"  {'SOURCE':18s} {r.get('source_url','')}")
             if (r.get("source_locator") or "").strip():
-                print(f"  {'FIND IT AT':18s} {r['source_locator']}")
+                print(f"  {'>> CHECK IT AT':18s} {r['source_locator']}")
+            print(f"  {'origin url':18s} {r.get('source_url','')}")
             print(f"  {'retrieved_on':18s} {r.get('retrieved_on','')}")
             if r.get("source_note"):
                 note = r["source_note"]
                 print(f"  {'source_note':18s} {note[:280]}{' …' if len(note) > 280 else ''}")
-            if a.open and r.get("source_url", "").startswith("http"):
-                webbrowser.open(r["source_url"])
+            if a.open:
+                target = _open_target(r)
+                if target:
+                    webbrowser.open(target)
             try:
                 ans = input("\n  matches the source? [y/n/s/q] ").strip().lower()
             except (EOFError, KeyboardInterrupt):

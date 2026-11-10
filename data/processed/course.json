@@ -17,10 +17,10 @@
     "source_locator": "Courses_Of_Study.pdf p.31 (programme structure table), p.83 (course description)",
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
-    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the BTech Mechanical Engineering programme structure table, Courses of Study p.32; syllabus not transcribed (published under the owning department, outside this programme-depth pass) | DISPUTED 2026-11-10 by Garvit Sharma: It is the course of study pdf",
-    "verification_status": "disputed",
-    "verified_on": "2026-11-10",
-    "verified_by": "Garvit Sharma"
+    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the BTech Mechanical Engineering programme structure table, Courses of Study p.32; syllabus not transcribed (published under the owning department, outside this programme-depth pass) | 2026-11-10: disputed during verification because the tool opened source_url (a listing page) rather than the source document. Tool fixed to open the local PDF at the page named in source_locator. Returned to unverified for re-checking.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
   },
   {
     "code": "MAL100",
@@ -247,10 +247,10 @@
     "source_locator": "Courses_Of_Study.pdf p.31 (programme structure table), p.122 (course description)",
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
-    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the BTech Mechanical Engineering programme structure table, Courses of Study p.32; syllabus not transcribed (published under the owning department, outside this programme-depth pass) | DISPUTED 2026-11-10 by Garvit Sharma: It Opens Courses of study",
-    "verification_status": "disputed",
-    "verified_on": "2026-11-10",
-    "verified_by": "Garvit Sharma"
+    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the BTech Mechanical Engineering programme structure table, Courses of Study p.32; syllabus not transcribed (published under the owning department, outside this programme-depth pass) | 2026-11-10: disputed during verification because the tool opened source_url (a listing page) rather than the source document. Tool fixed to open the local PDF at the page named in source_locator. Returned to unverified for re-checking.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
   },
   {
     "code": "BML101",
@@ -270,10 +270,10 @@
     "source_locator": "Courses_Of_Study.pdf p.31 (programme structure table), p.62 (course description)",
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
-    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the BTech Mechanical Engineering programme structure table, Courses of Study p.32; syllabus not transcribed (published under the owning department, outside this programme-depth pass) | DISPUTED 2026-11-10 by Garvit Sharma: It Opens Courses of study",
-    "verification_status": "disputed",
-    "verified_on": "2026-11-10",
-    "verified_by": "Garvit Sharma"
+    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the BTech Mechanical Engineering programme structure table, Courses of Study p.32; syllabus not transcribed (published under the owning department, outside this programme-depth pass) | 2026-11-10: disputed during verification because the tool opened source_url (a listing page) rather than the source document. Tool fixed to open the local PDF at the page named in source_locator. Returned to unverified for re-checking.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
   },
   {
     "code": "LAL100",
@@ -293,10 +293,10 @@
     "source_locator": "Courses_Of_Study.pdf p.31 (programme structure table), p.136 (course description)",
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
-    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the BTech Mechanical Engineering programme structure table, Courses of Study p.32; syllabus not transcribed (published under the owning department, outside this programme-depth pass) | DISPUTED 2026-11-10 by Garvit Sharma: It is the course of study pdf",
-    "verification_status": "disputed",
-    "verified_on": "2026-11-10",
-    "verified_by": "Garvit Sharma"
+    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the BTech Mechanical Engineering programme structure table, Courses of Study p.32; syllabus not transcribed (published under the owning department, outside this programme-depth pass) | 2026-11-10: disputed during verification because the tool opened source_url (a listing page) rather than the source document. Tool fixed to open the local PDF at the page named in source_locator. Returned to unverified for re-checking.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
   },
   {
     "code": "LAL101",
@@ -362,10 +362,10 @@
     "source_locator": "Courses_Of_Study.pdf p.31 (programme structure table)",
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
-    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the Mechanical programme structure table (Program linked courses), Courses of Study p.32",
-    "verification_status": "disputed",
-    "verified_on": "2026-11-10",
-    "verified_by": "Garvit Sharma"
+    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); transcribed from the Mechanical programme structure table (Program linked courses), Courses of Study p.32 | 2026-11-10: disputed during verification because the tool opened source_url (a listing page) rather than the source document. Tool fixed to open the local PDF at the page named in source_locator. Returned to unverified for re-checking.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
   },
   {
     "code": "MEL231",
@@ -477,10 +477,10 @@
     "source_locator": "Courses_Of_Study.pdf p.31 (programme structure table), p.179 (course description)",
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
-    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in) | 2026-11-10: a verification pass could not check this record, because source_url pointed at the whole Courses of Study document. Resolved by adding source_locator with the exact PDF page. Returned to unverified for re-checking. | DISPUTED 2026-11-10 by Garvit Sharma: It is the course of study pdf",
-    "verification_status": "disputed",
-    "verified_on": "2026-11-10",
-    "verified_by": "Garvit Sharma"
+    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in) | 2026-11-10: a verification pass could not check this record, because source_url pointed at the whole Courses of Study document. Resolved by adding source_locator with the exact PDF page. Returned to unverified for re-checking. | 2026-11-10: disputed during verification because the tool opened source_url (a listing page) rather than the source document. Tool fixed to open the local PDF at the page named in source_locator. Returned to unverified for re-checking.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
   },
   {
     "code": "MEL212",
@@ -615,10 +615,10 @@
     "source_locator": "Courses_Of_Study.pdf p.31 (programme structure table), p.183 (course description)",
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
-    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in) | DISPUTED 2026-11-10 by Garvit Sharma: It Opens Courses of study",
-    "verification_status": "disputed",
-    "verified_on": "2026-11-10",
-    "verified_by": "Garvit Sharma"
+    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in) | 2026-11-10: disputed during verification because the tool opened source_url (a listing page) rather than the source document. Tool fixed to open the local PDF at the page named in source_locator. Returned to unverified for re-checking.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
   },
   {
     "code": "MEP371",
@@ -799,10 +799,10 @@
     "source_locator": "Courses_Of_Study.pdf p.31 (programme structure table), p.136 (course description)",
     "retrieved_on": "2026-11-09",
     "source_type": "manual",
-    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); non-graded core; the semester grid prints '-' in place of an L-T-P-C value, so credits are left null. | DISPUTED 2026-11-10 by Garvit Sharma: It is the course of study pdf",
-    "verification_status": "disputed",
-    "verified_on": "2026-11-10",
-    "verified_by": "Garvit Sharma"
+    "source_note": "transcribed by hand from the official PDF (robots.txt disallows automated retrieval of iitbhilai.ac.in); non-graded core; the semester grid prints '-' in place of an L-T-P-C value, so credits are left null. | 2026-11-10: disputed during verification because the tool opened source_url (a listing page) rather than the source document. Tool fixed to open the local PDF at the page named in source_locator. Returned to unverified for re-checking.",
+    "verification_status": "unverified",
+    "verified_on": null,
+    "verified_by": null
   },
   {
     "code": "MEL414",

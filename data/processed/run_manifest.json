@@ -32,8 +32,8 @@
         "source_type": 100.0,
         "source_note": 100.0,
         "verification_status": 100.0,
-        "verified_on": 19.5,
-        "verified_by": 19.5
+        "verified_on": 0.0,
+        "verified_by": 0.0
       }
     },
     "prerequisite_edge": {
@@ -185,7 +185,7 @@
       },
       {
         "file": "curriculum/courses.csv",
-        "bytes": 46499
+        "bytes": 47757
       },
       {
         "file": "curriculum/pdf_sources.json",
@@ -250,6 +250,6 @@
       "MEP376->ME334: remapped to MEL334 per corrections.csv",
       "MEL414->MEL111: DROPPED per corrections.csv \u2014 MEL111 appears nowhere in the Courses of Study except as this course's prerequisite and overlap. No candidate course can be identified without guessing, so the edge is omitted rather than remapped. The printed value is preserved in prerequisites.csv source_note and reported in DATA_QUALITY.md."
     ],
-    "elapsed_seconds": 1.0
+    "elapsed_seconds": 1.12
   }
 }
