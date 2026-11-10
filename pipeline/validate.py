@@ -82,6 +82,7 @@ class Validator:
     def check_provenance(self):
         """Every record must carry a source URL, an ISO retrieval date and a known source_type."""
         self.checks_run.append("provenance_complete")
+        self.checks_run.append("disputed_has_reason")
         for entity in ("course", "prerequisite_edge", "skill", "course_skill_link",
                        "academic_rule", "resource", "resource_skill_link"):
             for r in self._rows(entity):
@@ -107,6 +108,12 @@ class Validator:
                 if p.verification_status not in VERIFICATION_STATES:
                     self._add("provenance_complete", ERROR, entity, rid,
                               f"verification_status {p.verification_status!r} invalid")
+                if p.verification_status == "disputed":
+                    # A dispute with no stated reason cannot be acted on by whoever
+                    # picks the record up next, so it is worse than no dispute.
+                    if "DISPUTED" not in (p.source_note or ""):
+                        self._add("disputed_has_reason", WARN, entity, rid,
+                                  "marked disputed but source_note records no reason")
                 if p.verification_status == "human_verified" and not p.verified_on:
                     self._add("provenance_complete", WARN, entity, rid,
                               "marked human_verified but no verified_on date")

@@ -32,8 +32,8 @@
         "source_type": 100.0,
         "source_note": 100.0,
         "verification_status": 100.0,
-        "verified_on": 0.0,
-        "verified_by": 0.0
+        "verified_on": 100.0,
+        "verified_by": 100.0
       }
     },
     "prerequisite_edge": {
@@ -185,7 +185,7 @@
       },
       {
         "file": "curriculum/courses.csv",
-        "bytes": 47757
+        "bytes": 47426
       },
       {
         "file": "curriculum/pdf_sources.json",
@@ -229,6 +229,7 @@
       "course_code_shape",
       "credits_match_ltp",
       "credits_numeric",
+      "disputed_has_reason",
       "duplicate_course_code",
       "duplicate_resource_url",
       "enum_values",
@@ -245,11 +246,11 @@
       "skill_taxonomy_no_cycle"
     ],
     "n_errors": 0,
-    "n_warnings": 17,
+    "n_warnings": 18,
     "parse_notes": [
       "MEP376->ME334: remapped to MEL334 per corrections.csv",
       "MEL414->MEL111: DROPPED per corrections.csv \u2014 MEL111 appears nowhere in the Courses of Study except as this course's prerequisite and overlap. No candidate course can be identified without guessing, so the edge is omitted rather than remapped. The printed value is preserved in prerequisites.csv source_note and reported in DATA_QUALITY.md."
     ],
-    "elapsed_seconds": 1.12
+    "elapsed_seconds": 0.32
   }
 }

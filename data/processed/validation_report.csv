@@ -1,4 +1,5 @@
 check,severity,entity,record_id,message
+disputed_has_reason,WARN,course,EEL208,marked disputed but source_note records no reason
 credits_numeric,WARN,course,NCN100,"no credits: expected for a non-graded course, which carries units rather than credits"
 credits_numeric,WARN,course,LAN103,"no credits: expected for a non-graded course, which carries units rather than credits"
 orphan_course_no_skill,WARN,course,MAL100,no course_skill_link; course contributes nothing to gap analysis

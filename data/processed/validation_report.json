@@ -1,5 +1,12 @@
 [
   {
+    "check": "disputed_has_reason",
+    "severity": "WARN",
+    "entity": "course",
+    "record_id": "EEL208",
+    "message": "marked disputed but source_note records no reason"
+  },
+  {
     "check": "credits_numeric",
     "severity": "WARN",
     "entity": "course",
