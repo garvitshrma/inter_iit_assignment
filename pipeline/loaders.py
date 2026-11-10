@@ -39,6 +39,7 @@ def _prov(row: dict) -> Provenance:
         _note(problem)
     return Provenance(
         source_url=(row.get("source_url") or "").strip() or None,
+        source_locator=(row.get("source_locator") or "").strip() or None,
         retrieved_on=retrieved,
         source_type=(row.get("source_type") or "illustrative").strip().lower(),
         source_note=(row.get("source_note") or "").strip() or None,

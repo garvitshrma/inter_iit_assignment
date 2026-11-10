@@ -1,6 +1,6 @@
 # Defects in the official source documents
 
-Nine problems found while transcribing IIT Bhilai's *Courses of Study* (Oct 2026)
+Ten problems found while transcribing IIT Bhilai's *Courses of Study* (Oct 2026)
 and *UG Manual*.
 
 Each one is transcribed **as printed**. Repairs live in
@@ -75,7 +75,22 @@ checked mechanically for this course.
 absent state. A parser treating `NA` as a course code would create a dangling
 edge.
 
-## 9. There is no Minor programme
+## 9. `MML204` is titled two different ways in the same document
+
+| Where | Title |
+|---|---|
+| Structure table, p.32 | Properties and phase transformation of Materials |
+| Course descriptions, p.150 | Phases, Phase Transformations and Properties of Materials |
+
+Not a rewording — the second names a different emphasis and a different word
+order. The description-section spelling is used, as for `MEL251`.
+
+Found by a human verification pass on 2026-11-10, not by the automated
+cross-check, which only compares L-T-P-C values. `tools/locate_in_pdf.py` now
+compares titles against the description page too, so this class of error is
+caught mechanically from here on.
+
+## 10. There is no Minor programme
 
 The brief asks for "minor eligibility (CGPA or other criteria)". The UG Manual has
 **no Minor at all** — the only "minor" in 40 pages is "minor/major project".

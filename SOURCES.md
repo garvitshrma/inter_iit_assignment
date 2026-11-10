@@ -17,7 +17,7 @@ and legal.
 |---|---|---|
 | `www.iitbhilai.ac.in` | **Automated retrieval disallowed.** Every page refused with `robots_disallowed`. | Didn't scrape it. A human downloaded the two PDFs in a browser and the records were transcribed by hand, with the published page as `source_url`. |
 | `archive.nptel.ac.in` | Allowed; static HTML and PDFs. | Primary NPTEL source. Syllabus PDFs parse and state title, coordinators, institute and duration. |
-| `onlinecourses.nptel.ac.in` | Allowed, but pages render in JavaScript. | Most return an empty shell. Only `noc25_me78` gave data. These rows are `tier=listing_only` with duration left empty. |
+| `onlinecourses.nptel.ac.in` | Allowed, but pages render in JavaScript. | A plain fetch returns an empty shell, so on 2026-11-09 these rows were recorded as `tier=listing_only` with duration left empty. On 2026-11-10 the pages were opened in a real browser, which runs their JavaScript, and 18 were promoted to `tier=page_read` with the duration, credit points, level and course type the provider states. Four still have no published duration: their Summary panel never populates. |
 | `ocw.mit.edu` | Allowed; terms page readable. | Licence verified directly. Course listings are JS-rendered, so title/URL pairs came from the provider's indexed listings. |
 | `swayam.gov.in` | Not used. | Licence couldn't be verified, and an unverifiable licence is worse than a smaller dataset. |
 
@@ -89,28 +89,28 @@ Licence applied to all NPTEL rows: **CC BY-NC-SA (version not stated by provider
 | `RES-NPT-007` | Heat and Mass Transfer | page read | 42 hours | 2026-11-09 | https://archive.nptel.ac.in/content/syllabus_pdf/112101097.pdf |
 | `RES-NPT-008` | Introduction to Materials Science and Engineering | page read | 40 hours | 2026-11-09 | https://archive.nptel.ac.in/content/syllabus_pdf/113106032.pdf |
 | `RES-NPT-009` | Thermodynamics | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me78/preview |
-| `RES-NPT-010` | Basics of Mechanical Engineering - 3 | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me168/preview |
-| `RES-NPT-011` | Fundamentals of Heat Transfer | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/e-learning/preview/noc25_me171 |
-| `RES-NPT-012` | Thermal Engineering: Basic and Applied | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me77/preview |
-| `RES-NPT-013` | Computational Fluid Dynamics and Heat Transfer | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc22_me101/preview |
-| `RES-NPT-014` | Conduction and Convection Heat Transfer | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc22_me63/preview |
-| `RES-NPT-015` | Convective Heat Transfer | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/e-learning/preview/noc21_me19 |
-| `RES-NPT-016` | Vibrations of Structures | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc21_me42/preview |
-| `RES-NPT-017` | Introduction to Mechanical Vibration | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc22_me76/preview |
-| `RES-NPT-018` | Fundamentals of Manufacturing Processes (online) | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me119/preview |
-| `RES-NPT-019` | Theory of Production Processes | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc23_me126/preview |
-| `RES-NPT-020` | Manufacturing Process Technology I & II | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc26_me47/preview |
-| `RES-NPT-021` | Manufacturing Processes - Casting and Joining | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/e-learning/preview/noc26_me118 |
-| `RES-NPT-022` | Introduction to Materials Science and Engineering (online) | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_mm17/preview |
-| `RES-NPT-023` | Phase Transformation in Materials | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me61/preview |
-| `RES-NPT-024` | Materials Science and Engineering | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc24_mm12/preview |
-| `RES-NPT-025` | Dynamic Behaviour of Materials | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc22_me115/preview |
-| `RES-NPT-026` | Applied Thermodynamics (online) | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc21_me119/preview |
+| `RES-NPT-010` | Basics of Mechanical Engineering - 3 | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me168/preview |
+| `RES-NPT-011` | Fundamentals of Heat Transfer | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/e-learning/preview/noc25_me171 |
+| `RES-NPT-012` | Thermal Engineering: Basic and Applied | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me77/preview |
+| `RES-NPT-013` | Computational Fluid Dynamics and Heat Transfer | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc22_me101/preview |
+| `RES-NPT-014` | Conduction and Convection Heat Transfer | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc22_me63/preview |
+| `RES-NPT-015` | Convective Heat Transfer | page read | 4 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/e-learning/preview/noc21_me19 |
+| `RES-NPT-016` | Vibrations of Structures | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc21_me42/preview |
+| `RES-NPT-017` | Introduction to Mechanical Vibration | page read | 8 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc22_me76/preview |
+| `RES-NPT-018` | Fundamentals of Manufacturing Processes (online) | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me119/preview |
+| `RES-NPT-019` | Theory of Production Processes | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc23_me126/preview |
+| `RES-NPT-020` | Manufacturing Process Technology I & II | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc26_me47/preview |
+| `RES-NPT-021` | Manufacturing Processes - Casting and Joining | page read | 4 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/e-learning/preview/noc26_me118 |
+| `RES-NPT-022` | Introduction to Materials Science and Engineering (online) | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_mm17/preview |
+| `RES-NPT-023` | Phase Transformation in Materials | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me61/preview |
+| `RES-NPT-024` | Materials Science and Engineering | page read | 8 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc24_mm12/preview |
+| `RES-NPT-025` | Dynamic Behaviour of Materials | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc22_me115/preview |
+| `RES-NPT-026` | Applied Thermodynamics (online) | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc21_me119/preview |
 | `RES-NPT-027` | Robotics | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc21_me76/preview |
 | `RES-NPT-028` | Mechanical Measurement Systems | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc20_me57/preview |
 | `RES-NPT-029` | Robotics and Control: Theory and Practice | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc20_me03/preview |
 | `RES-NPT-030` | Microrobotics | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc25_me177/preview |
-| `RES-NPT-031` | Measurement and Instrumentation | listing only | not stated | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc26_ee01/preview |
+| `RES-NPT-031` | Measurement and Instrumentation | page read | 12 weeks | 2026-11-09 | https://onlinecourses.nptel.ac.in/noc26_ee01/preview |
 | `RES-NPT-032` | NOC: Automation in Manufacturing | listing only | not stated | 2026-11-09 | https://archive.nptel.ac.in/courses/112/103/112103293/ |
 | `RES-NPT-033` | Design of Machine Elements I (course archive) | listing only | not stated | 2026-11-09 | https://archive.nptel.ac.in/courses/112/105/112105124/ |
 | `RES-NPT-034` | Advanced Manufacturing Processes | listing only | not stated | 2026-11-09 | https://archive.nptel.ac.in/content/syllabus_pdf/112107077.pdf |

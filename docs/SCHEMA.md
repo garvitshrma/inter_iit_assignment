@@ -10,6 +10,7 @@ more:
 
 | Field | Why |
 |---|---|
+| `source_locator` | Where inside the source document the record is, e.g. `Courses_Of_Study.pdf p.32 (structure table), p.150 (course description)`. Added after a verification pass found the records unverifiable: `source_url` pointed at a 208-page PDF, so a reviewer had nowhere to look. Provenance that cannot be acted on is not traceability. Written by `tools/locate_in_pdf.py`, which finds each code in the PDF rather than trusting a hand-typed page number. |
 | `source_note` | How the record was obtained: which PDF page, whether a web page was actually opened, whether a number was derived. Two records can have identical provenance and very different trustworthiness. |
 | `verification_status` | `unverified` / `human_verified` / `disputed`. Part D asks how a teammate would verify a sample. Easier to answer if verification is a field, not a promise. |
 | `verified_on`, `verified_by` | Who checked it and when, so the sample is reproducible. |

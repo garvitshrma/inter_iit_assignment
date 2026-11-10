@@ -31,6 +31,10 @@ MODES = ("lecture", "lecture-tutorial", "lecture-lab", "lab", "project", "unknow
 class Provenance:
     """Attached to every record. retrieved_on is an ISO date (YYYY-MM-DD)."""
     source_url: Optional[str] = None
+    # Where inside the source document this record is. A source_url pointing at a
+    # 208-page PDF is honest about origin but useless for checking one record,
+    # which a verification pass found out the hard way.
+    source_locator: Optional[str] = None
     retrieved_on: Optional[str] = None
     source_type: str = "illustrative"
     source_note: Optional[str] = None

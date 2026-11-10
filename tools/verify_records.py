@@ -123,6 +123,8 @@ def main():
                     val = val[:300] + " …"
                 print(f"  {f:18s} {val}")
             print(f"  {'SOURCE':18s} {r.get('source_url','')}")
+            if (r.get("source_locator") or "").strip():
+                print(f"  {'FIND IT AT':18s} {r['source_locator']}")
             print(f"  {'retrieved_on':18s} {r.get('retrieved_on','')}")
             if r.get("source_note"):
                 note = r["source_note"]

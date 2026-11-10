@@ -103,10 +103,12 @@ def main():
       f"institute-core courses publish their syllabi under their owning departments, "
       f"outside this programme-depth pass), `course.objectives` {obj}% (the Courses of "
       f"Study publishes a syllabus but **no separate learning objectives** — empty by "
-      f"source, not by omission), `resource.duration_value` {n_res_dur}% (NPTEL's course "
-      f"pages are client-side rendered and return an empty shell to any fetch, so only "
-      f"resources with a static syllabus PDF have a verified duration; the rest are null "
-      f"rather than guessed).\n")
+      f"`resource.duration_value` {n_res_dur}% (NPTEL's course pages are "
+      f"client-side rendered, so a plain fetch returns an empty shell; the pages were "
+      f"opened in a real browser instead and the durations read off what the provider "
+      f"states. The remainder publish no duration at all: MIT OpenCourseWare states "
+      f"none, four NPTEL courses have a Summary panel that never populates, and the "
+      f"rest are syllabus PDFs with no stated total. None is guessed).\n")
     A(f"**What the validator caught in real data.** Nine defects in the official "
       f"documents, including two prerequisites naming course codes that do not exist "
       f"(`ME334`, `MEL111`), one course whose L-T-P is printed two different ways in the "

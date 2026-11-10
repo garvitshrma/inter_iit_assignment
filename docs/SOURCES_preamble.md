@@ -17,7 +17,7 @@ and legal.
 |---|---|---|
 | `www.iitbhilai.ac.in` | **Automated retrieval disallowed.** Every page refused with `robots_disallowed`. | Didn't scrape it. A human downloaded the two PDFs in a browser and the records were transcribed by hand, with the published page as `source_url`. |
 | `archive.nptel.ac.in` | Allowed; static HTML and PDFs. | Primary NPTEL source. Syllabus PDFs parse and state title, coordinators, institute and duration. |
-| `onlinecourses.nptel.ac.in` | Allowed, but pages render in JavaScript. | Most return an empty shell. Only `noc25_me78` gave data. These rows are `tier=listing_only` with duration left empty. |
+| `onlinecourses.nptel.ac.in` | Allowed, but pages render in JavaScript. | A plain fetch returns an empty shell, so on 2026-11-09 these rows were recorded as `tier=listing_only` with duration left empty. On 2026-11-10 the pages were opened in a real browser, which runs their JavaScript, and 18 were promoted to `tier=page_read` with the duration, credit points, level and course type the provider states. Four still have no published duration: their Summary panel never populates. |
 | `ocw.mit.edu` | Allowed; terms page readable. | Licence verified directly. Course listings are JS-rendered, so title/URL pairs came from the provider's indexed listings. |
 | `swayam.gov.in` | Not used. | Licence couldn't be verified, and an unverifiable licence is worse than a smaller dataset. |
 
